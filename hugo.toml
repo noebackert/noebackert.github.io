@@ -1,14 +1,39 @@
-baseURL = 'https://noe.backert.fr/'
+baseURL = 'https://www.noe.backert.fr/'
 languageCode = 'en-us'
 title = 'My Personnal Blog - Noé Backert'
 theme = 'PaperMod'
 enableEmoji = true
+
+[params.meta]
+  description = "Noé Backert's personal blog, featuring CTF writeups, projects, and a resume."
+  keywords = ["CTF", "Writeups", "Projects", "Resume", "Blog"]
+  author = "Noé Backert"
+
+[params.assets]
+  favicon = "/img/favicon.ico"
+
+
+defaultContentLanguage = "en"
+
+[languages]
+  [languages.en]
+    languageName = "🇬🇧 English"
+    weight = 1
+    contentDir = "content/en"
+  
+  [languages.fr]
+    languageName = "🇫🇷 Français"
+    weight = 2
+    contentDir = "content/fr"
+
+
 
 [params]
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   customCSS = ["css/custom.css"]
+  enableLanguageSwitcher = true
 
 [menu]
   [[menu.main]]

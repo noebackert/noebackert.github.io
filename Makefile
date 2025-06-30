@@ -9,9 +9,12 @@ serve:
 	$(HUGO) server -D
 
 # Create a new post: make new name=my-post
-new:
-	$(HUGO) new posts/$(name).md
+new-ctf:
+	$(HUGO) new ctf/$(name).md
 
+new-project:
+	$(HUGO) new project/$(name).md
+	
 # Build the site locally
 build:
 	$(HUGO) --minify
