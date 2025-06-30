@@ -1,0 +1,34 @@
+baseURL = 'https://noebackert.github.io/'
+languageCode = 'en-us'
+title = 'My Personnal Blog - Noé Backert'
+theme = 'PaperMod'
+enableEmoji = true
+
+[params]
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  customCSS = ["css/custom.css"]
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+  [[menu.main]]
+    name = "Resume"
+    url = "/resume/"
+    weight = 2
+  [[menu.main]]
+    name = "CTF Writeups"
+    url = "/ctf/"
+    weight = 3
+  [[menu.main]]
+    name = "Projects"
+    url = "/Projects/"
+    weight = 4
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
