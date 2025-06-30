@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Laser Fault Injection - Internship | My Personnal Blog - Noé Backert</title>
+<meta name="keywords" content="">
+<meta name="description" content="Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors.">
+<meta name="author" content="Noé Backert">
+<link rel="canonical" href="https://www.noe.backert.fr/projects/lfi/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.8fe10233a706bc87f2e08b3cf97b8bd4c0a80f10675a143675d59212121037c0.css" integrity="sha256-j&#43;ECM6cGvIfy4Is8&#43;XuL1MCoDxBnWhQ2ddWSEhIQN8A=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://www.noe.backert.fr/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://www.noe.backert.fr/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://www.noe.backert.fr/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://www.noe.backert.fr/apple-touch-icon.png">
+<link rel="mask-icon" href="https://www.noe.backert.fr/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://www.noe.backert.fr/projects/lfi/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><link rel="stylesheet" href="/css/custom.css"><meta property="og:url" content="https://www.noe.backert.fr/projects/lfi/">
+  <meta property="og:site_name" content="My Personnal Blog - Noé Backert">
+  <meta property="og:title" content="Laser Fault Injection - Internship">
+  <meta property="og:description" content="Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="projects">
+    <meta property="article:published_time" content="2024-07-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-01T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Laser Fault Injection - Internship">
+<meta name="twitter:description" content="Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "https://www.noe.backert.fr/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Laser Fault Injection - Internship",
+      "item": "https://www.noe.backert.fr/projects/lfi/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Laser Fault Injection - Internship",
+  "name": "Laser Fault Injection - Internship",
+  "description": "Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors.",
+  "keywords": [
+    
+  ],
+  "articleBody": "Power-off laser fault injection on embedded security primitives Project Type: Internship hardware security Tools: Python, laser laboratory sources (picosecond, nanosecond) Duration: 4 months Team: SAS department EMSE Introduction This internship aims to investigate whether power-off laser fault injection can be utilized to disable or manipulate security mechanisms, such as Physically Unclonable Functions (PUFs) or Bulk Built-In Current Sensors (BBICS).\nThe project will focus on designing experiments and testing them on a specialized chip, which is used to simulate the effects of radiation on a system.\nProject Overview The project involves:\nUnderstanding the different physical attacks on chips Exploring the use of laser to induce faults on devices Developing experiments aimed at influencing security sensors Analyzing results for security evaluation Important Definitions BBICS (Bulk Built-In Current Sensors) Bulk Built-In Current Sensors are essential components used in modern embedded security systems to:\nDetect current anomalies in the bulk substrate of integrated circuits, specifically when subjected to external attacks like laser fault injection. Generate an alert flag, triggering an alarm whenever an anomaly or fault condition is detected, thus preventing potential breaches or malfunctions in the chip. Operate by sensing transient currents within the CMOS structure, helping to maintain system integrity during fault conditions. BBICS play a critical role in securing integrated circuits against physical attacks, such as power-off laser fault injection. By ensuring that any suspicious activity is flagged, these sensors protect sensitive data and security mechanisms in embedded systems.\nFigure 1: Architecture of a single NP BBICS\nBBICS are composed of a latch in the middle, and are surrounded by transistors connected to N-wells and P-wells on either side. When a transient current is detected in the bulk, the transistors trigger a change in the state of the latch, which raises an alert signal. This configuration ensures the detection of anomalies in both N-type and P-type regions, maintaining comprehensive fault detection coverage in the CMOS structure.\nSingle Event Effects Single Event Effects (SEEs) occur when an ionizing particle strikes a sensitive node within a semiconductor device, altering its state. This impact can lead to errors in digital circuits or transient faults in memory cells, known as Single Event Upsets (SEUs). According to NASA’s definition, SEEs are measurable effects on a circuit caused by ion impact. These effects include, but are not limited to:\nSingle Event Upset (SEU): A transient state change induced by an energetic particle, affecting components like digital, analog, or optical elements. SEUs are \"soft\" errors that can be corrected by resetting or rewriting the device. Single Event Transient (SET): A temporary incorrect output caused by a transient current, induced by an ionizing particle striking a PN junction. This type of event does not permanently alter the device, but the erroneous output can lead to security vulnerabilities. Single Event Latchup (SEL): A persistent short-circuit state triggered by an ionizing particle, which often requires a power cycle to correct. Single Event Burnout (SEB): A catastrophic failure where an ionizing particle induces a high-current state, leading to permanent destruction of the device. Single Event Gate Rupture (SEGR): A physical rupture of the gate oxide in a MOSFET due to ionizing particle impact. Single Event Dielectric Rupture (SEDR): A rupture in the dielectric layer of a semiconductor device caused by an ionizing particle, which can result in permanent damage. Example on a CMOS inverter:\nFigure 2: Inverter with input '0'\nThis diagram illustrates the behavior of an inverter circuit when a Single Event Transient (SET) induced by a laser occurs, with the input set to '0'. In this state:\nInput and output states: The input of the inverter is '0', which means the NMOS transistor is off and the PMOS transistor is on. As a result, the output is '1'. Laser impact: A laser beam hits the NMOS transistor, causing a transient current. Effect of the transient current: This transient current can induce a SET, potentially changing the output state from '1' to '0'. Sensitive regions: The sensitive region in this scenario is the NMOS transistor, which is vulnerable to the transient induced by the laser when the input is '0'. Figure 3: Inverter with input '1'\nThis diagram illustrates the behavior of an inverter circuit when a Single Event Transient (SET) induced by a laser occurs, with the input set to '1'. In this state:\nInput and output states: The input of the inverter is '1', which means the NMOS transistor is on and the PMOS transistor is off. As a result, the output is '0'. Laser impact: A laser beam hits the PMOS transistor, causing a transient current. Effect of the transient current: This transient current can induce a SET, potentially changing the output state from '0' to '1'. Sensitive regions: The sensitive region in this scenario is the PMOS transistor, which is vulnerable to the transient induced by the laser when the input is '1'. Layout Analysis (GDS File) of the Radhard Chip Since the chip we are working on is the result of research from the SAS laboratory, we have access to the layout files of the Radhard board (Radiation Hardening). This allows us to know where to direct our efforts. In our case, we will first focus on the single_BBICS located at the top of the board, and then on the Calisson_pattern_Well block, which is located at the bottom of the pattern_SC_TW_Well block and groups together the different BBICS with high sensitivity (hs_bbics) and low leakage (ll_bbics).\nComplete layout of the Radhard board\nLayout of the isolated single BBICS\nLayout of the BBICS block\nZoom on the layout of the multiple BBICS in the Calisson_pattern_Well block\nBBICS Functionality Verification To verify the functionality of the BBICS, we first perform characterization at different laser energies and pulse widths.\nTo achieve this, we used the following experimental setup:\nSetup 1 - bispot laser\nThe camera provides real-time information on the laser’s position during the attack, allowing us to precisely target the desired BBICS with the help of the layout shown in the figure below.\nLocation of the origin (0,0) for the attack on the single BBICS\nCharacterization zone on the Radhard.gds layout (characterization 4)\nSummary of Characterization Parameters Here are the parameters used to characterize the operation of the BBICS. The table below lists the different ranges of the laser attack, the step size, the maximum current sent to the optical fiber, and the pulse width.\n№ Range (x,y) [\\(\\mu m\\)] Step \\(\\Delta\\) [\\(\\mu m\\)] \\(I_{max}\\) [mA] PW [ns] 1 (-50,-50) → (75,75) 5 75, 100, 200, 300 5, 10, 50, 100, 200, 500 2 (-20,-20) → (45,45) 0.5 50, 75, 100 5, 10, 50, 100, 200, 500 3 (-50,-50) → (75,75) 5 60, 70, 80, 90, 100 10, 50, 100, 200, 500 4 (-150,-150) → (100,150) 5 80, 100, 200, 300, 400 10, 50, 100, 200, 500 5 (-30,0) → (70,70) 1 100, 200, 300, 400, 500, 1000 5 Table 1: Characterization\nResults of the characterization Characterization on the Calisson_pattern_Well Block We also performed a characterization on the block containing the other BBICS, although these are not the ones we will attack first.\nWe can already observe two surprising results from these characterizations:\nOnly 4 flags are present (no fault, single NWell, high sensitivity PWell, and both at the same time). The high sensitivity BBICS seems to detect fault injections less sensitively than the single NWell BBICS. My mistake here was only performing one characterization. Indeed, the result does not seem to be consistent, and we cannot be sure of the proper functioning of the other BBICS. I should have run a characterization on another test card to compare the results.\nAttack protocol Several aspects need to be tested with different parameters to try to temporarily or permanently damage our integrated mass current sensor.\nFirst, the initial idea was to attack in order to exceed the TID (Total Ionizing Dose) of the targeted area. Indeed, when using a pulsed laser, it generates radiation effects that, at certain doses, can modify the behavior of the electronic circuit either temporarily or permanently. These radiation effects stem from the interactions between the laser and the sensor material, generating electron-hole pairs and inducing parasitic currents. As the accumulated radiation dose increases, these currents can alter the electrical characteristics of the components, leading to malfunctions. For example, a sufficient dose of radiation can cause a threshold voltage shift in transistors, an increase in leakage current, or a degradation of the overall performance of the circuit. These changes can result in temporary malfunctions, where the sensor can recover after a certain time, or permanent malfunctions where the damage is irreversible.\nNext, the second way to attack the integrated mass current sensor would be to use thermal effects associated with pulsed laser attacks, thus melting certain transistors during the attack.\nThe experimental protocol I devised for these two methods is as follows:\nInitial rough characterization (BBICS on) Turning off the board’s power supply Attack with energy/power P for X seconds and at a frequency F Powering the board Final rough characterization (BBICS on) These attacks will be performed using two different laser sources (nanosecond and picosecond) to test the different effects related to these sources.\nThe first targeted attacks we conducted on the BBICS were carried out on a different setup than the one used during the characterization (see Figure below). This setup uses the advanced laser from room E017, which has several interchangeable laser sources (nanosecond source, high-power nanosecond source: NanoHP, and a picosecond source).\nThis laser allowed us to carry out our experimental protocol with the greatest number of possible parameters (see tables below).\nSummary of the attacks performed with the picosecond laser source: Attack Name Energy [nJ] PW [ps] Optics Frequency F [Hz] Time T [s] exp_pico1 1 → 50 30 x20 continuous (1 MHz) 180 → 300 exp_pico2 50 30 x20 continuous (1 MHz) 180 → 300 exp_pico3 10 → 45 30 x20 continuous (1 MHz) 180 → 600 Table 3: Attacks performed with the picosecond source\nResults Nanosecond Source Summary of Results:\nAll attacks using the nanosecond laser source (experiments exp1 to exp17) were unsuccessful in causing damage or detectable effects on the BBICS. Comparisons of the sensor’s performance before and after the attacks showed no significant changes, meaning the sensors continued to function as before.\nChallenges Faced:\nIncreasing the attack duration might have led to more significant effects, but the laser would often overheat and shut down when performing consecutive attacks or extended attacks, especially in the final experiments (exp8 to exp17) where high power and long durations were used.\nVisuals:\nFigure 1: Initial characterization with the nanosecond laser source (10 mW at 50 ns, x20 optics) Figure 2: Experiment exp6 (2.8W - 500ns - 90s) Figure 3: Experiment exp8 (2.8W - 1s - 60s) Figure 4: Experiment exp17 (2.8W - 500ns - 600s) Picosecond Source Results:\nFor the picosecond source, we obtained better results. We gradually increased the attack energies from 1 nJ to 50 nJ, while testing for various durations ranging from 180 to 300 seconds.\nThe first attack (exp_pico1) already shows that the attacks have a short-term effect on the detection range of the BBICS. Indeed, as the energy increases, we notice that the detection threshold of the BBICS gradually decreases.\nInfluence of Duration:\nBased on the results, the attack duration does not seem to have a significant influence on the detection threshold.\nVisuals:\nFigure 5: Comparison of attack results from 10 nJ to 15 nJ for 180 and 300 s (characterization done at 0.1 nJ and 30 ps) As the energy of the attack increases, this reduction in the detection range of the transient current sensor becomes more pronounced. These results, obtained with the picosecond laser, support the idea that it is possible to conduct an attack that could permanently or temporarily bias the sensor. After a certain time, the BBICS would return to its normal detection threshold.\nAnother step in the analysis, which I did not have time to conduct, would be to measure how long it takes for the sensor to return to its initial state after an off-power attack.\nHigher Energy Attacks:\nNew attacks with higher energy were conducted. In Figure 6, we can see the characterizations done after attacks with 35 to 40 nJ. In this energy range, the reduction in the detection range is not as obvious as between 10 nJ and 15 nJ, but it remains present.\nFinally, by increasing the energy further, we achieved a permanent BBICS failure for an energy of 45 nJ during a 300-second attack. The first attack that permanently biased the BBICS was performed with 50 nJ for 180 seconds and was confirmed by another attack at 45 nJ for 300 seconds on a different board.\nVisuals:\nFigure 7: BBICS attack at 50 nJ 30 ps on board number 4 Figure 8: BBICS attack at 45 nJ 30 ps on board number 6 ",
+  "wordCount" : "2139",
+  "inLanguage": "en",
+  "datePublished": "2024-07-01T00:00:00Z",
+  "dateModified": "2024-07-01T00:00:00Z",
+  "author":{
+    "@type": "Person",
+    "name": "Noé Backert"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.noe.backert.fr/projects/lfi/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "My Personnal Blog - Noé Backert",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.noe.backert.fr/favicon.ico"
+    }
+  }
+}
+</script>
+    <script>
+    window.MathJax = {
+    tex: {
+        inlineMath: [['\\(','\\)'], ['$', '$']],
+        displayMath: [['$$','$$'], ['\\[','\\]']]
+    },
+    options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    }
+    };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://www.noe.backert.fr/" accesskey="h" title="My Personnal Blog - Noé Backert (Alt + H)">My Personnal Blog - Noé Backert</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://www.noe.backert.fr/" title="Home">
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.noe.backert.fr/resume/" title="Resume">
+                    <span>Resume</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.noe.backert.fr/ctf/" title="CTF Writeups">
+                    <span>CTF Writeups</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://www.noe.backert.fr/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://www.noe.backert.fr/">Home</a>&nbsp;»&nbsp;<a href="https://www.noe.backert.fr/projects/">Projects</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Laser Fault Injection - Internship
+    </h1>
+    <div class="post-description">
+      Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors.
+    </div>
+    <div class="post-meta"><span title='2024-07-01 00:00:00 +0000 UTC'>July 1, 2024</span>&nbsp;·&nbsp;11 min&nbsp;·&nbsp;Noé Backert
+
+</div>
+  </header> 
+  <div class="post-content"><h3 id="power-off-laser-fault-injection-on-embedded-security-primitives">Power-off laser fault injection on embedded security primitives<a hidden class="anchor" aria-hidden="true" href="#power-off-laser-fault-injection-on-embedded-security-primitives">#</a></h3>
+<ul>
+<li><strong>Project Type:</strong> Internship hardware security</li>
+<li><strong>Tools:</strong> Python, laser laboratory sources (picosecond, nanosecond)</li>
+<li><strong>Duration:</strong> 4 months</li>
+<li><strong>Team:</strong> SAS department EMSE</li>
+</ul>
+<hr>
+<h3 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h3>
+<p>This internship aims to investigate whether power-off laser fault injection can be utilized to disable or manipulate security mechanisms, such as Physically Unclonable Functions (PUFs) or Bulk Built-In Current Sensors (BBICS).</p>
+<p>The project will focus on designing experiments and testing them on a specialized chip, which is used to simulate the effects of radiation on a system.</p>
+<hr>
+<h3 id="project-overview">Project Overview<a hidden class="anchor" aria-hidden="true" href="#project-overview">#</a></h3>
+<p>The project involves:</p>
+<ul>
+<li>Understanding the different physical attacks on chips</li>
+<li>Exploring the use of laser to induce faults on devices</li>
+<li>Developing experiments aimed at influencing security sensors</li>
+<li>Analyzing results for security evaluation</li>
+</ul>
+<hr>
+<h3 id="important-definitions">Important Definitions<a hidden class="anchor" aria-hidden="true" href="#important-definitions">#</a></h3>
+<h4 id="bbics-bulk-built-in-current-sensors">BBICS (Bulk Built-In Current Sensors)<a hidden class="anchor" aria-hidden="true" href="#bbics-bulk-built-in-current-sensors">#</a></h4>
+<p>Bulk Built-In Current Sensors are essential components used in modern embedded security systems to:</p>
+<ul>
+<li>Detect current anomalies in the bulk substrate of integrated circuits, specifically when subjected to external attacks like laser fault injection.</li>
+<li>Generate an alert flag, triggering an alarm whenever an anomaly or fault condition is detected, thus preventing potential breaches or malfunctions in the chip.</li>
+<li>Operate by sensing transient currents within the CMOS structure, helping to maintain system integrity during fault conditions.</li>
+</ul>
+<p>BBICS play a critical role in securing integrated circuits against physical attacks, such as power-off laser fault injection. By ensuring that any suspicious activity is flagged, these sensors protect sensitive data and security mechanisms in embedded systems.</p>
+<hr>
+<div style="width:50%; margin: 1em auto;">
+  <img src="/img/projects/lfi/inverter-BBICS.png">
+  <p style="text-align:center; font-style:italic;">Figure 1: Architecture of a single NP BBICS</p>
+</div>
+<p>BBICS are composed of a latch in the middle, and are surrounded by transistors connected to N-wells and P-wells on either side. When a transient current is detected in the bulk, the transistors trigger a change in the state of the latch, which raises an alert signal. This configuration ensures the detection of anomalies in both N-type and P-type regions, maintaining comprehensive fault detection coverage in the CMOS structure.</p>
+<hr>
+<h3 id="single-event-effects">Single Event Effects<a hidden class="anchor" aria-hidden="true" href="#single-event-effects">#</a></h3>
+<p>Single Event Effects (SEEs) occur when an ionizing particle strikes a sensitive node within a semiconductor device, altering its state. This impact can lead to errors in digital circuits or transient faults in memory cells, known as Single Event Upsets (SEUs). According to NASA&rsquo;s definition, SEEs are measurable effects on a circuit caused by ion impact. These effects include, but are not limited to:</p>
+<ul class="two-column-list">
+<li><b>Single Event Upset (SEU):</b> A transient state change induced by an energetic particle, affecting components like digital, analog, or optical elements. SEUs are "soft" errors that can be corrected by resetting or rewriting the device.</li>
+<li><b>Single Event Transient (SET):</b> A temporary incorrect output caused by a transient current, induced by an ionizing particle striking a PN junction. This type of event does not permanently alter the device, but the erroneous output can lead to security vulnerabilities.</li>
+<li><b>Single Event Latchup (SEL):</b> A persistent short-circuit state triggered by an ionizing particle, which often requires a power cycle to correct.</li>
+<li><b>Single Event Burnout (SEB):</b> A catastrophic failure where an ionizing particle induces a high-current state, leading to permanent destruction of the device.</li>
+<li><b>Single Event Gate Rupture (SEGR):</b> A physical rupture of the gate oxide in a MOSFET due to ionizing particle impact.</li>
+<li><b>Single Event Dielectric Rupture (SEDR):</b> A rupture in the dielectric layer of a semiconductor device caused by an ionizing particle, which can result in permanent damage.</li>
+</ul>
+<p>Example on a CMOS inverter:</p>
+<div style="display:flex; justify-content:center; gap:5%;">
+  <div style="width:45%;">
+    <img src="/img/projects/lfi/inverter_N_case.png">
+    <p style="text-align:center; font-style:italic;">Figure 2: Inverter with input '0'</p>
+    <p>This diagram illustrates the behavior of an inverter circuit when a Single Event Transient (SET) induced by a laser occurs, with the input set to '0'. In this state:</p>
+    <ul>
+      <li><b>Input and output states:</b> The input of the inverter is '0', which means the NMOS transistor is off and the PMOS transistor is on. As a result, the output is '1'.</li>
+      <li><b>Laser impact:</b> A laser beam hits the NMOS transistor, causing a transient current.</li>
+      <li><b>Effect of the transient current:</b> This transient current can induce a SET, potentially changing the output state from '1' to '0'.</li>
+      <li><b>Sensitive regions:</b> The sensitive region in this scenario is the NMOS transistor, which is vulnerable to the transient induced by the laser when the input is '0'.</li>
+    </ul>
+  </div>
+  <div style="width:45%;">
+    <img src="/img/projects/lfi/inverter_P_case.png">
+    <p style="text-align:center; font-style:italic;">Figure 3: Inverter with input '1'</p>
+    <p>This diagram illustrates the behavior of an inverter circuit when a Single Event Transient (SET) induced by a laser occurs, with the input set to '1'. In this state:</p>
+    <ul>
+      <li><b>Input and output states:</b> The input of the inverter is '1', which means the NMOS transistor is on and the PMOS transistor is off. As a result, the output is '0'.</li>
+      <li><b>Laser impact:</b> A laser beam hits the PMOS transistor, causing a transient current.</li>
+      <li><b>Effect of the transient current:</b> This transient current can induce a SET, potentially changing the output state from '0' to '1'.</li>
+      <li><b>Sensitive regions:</b> The sensitive region in this scenario is the PMOS transistor, which is vulnerable to the transient induced by the laser when the input is '1'.</li>
+    </ul>
+  </div>
+</div>
+<hr>
+<h3 id="layout-analysis-gds-file-of-the-radhard-chip">Layout Analysis (GDS File) of the Radhard Chip<a hidden class="anchor" aria-hidden="true" href="#layout-analysis-gds-file-of-the-radhard-chip">#</a></h3>
+<p>Since the chip we are working on is the result of research from the SAS laboratory, we have access to the layout files of the Radhard board (Radiation Hardening). This allows us to know where to direct our efforts. In our case, we will first focus on the single_BBICS located at the top of the board, and then on the Calisson_pattern_Well block, which is located at the bottom of the pattern_SC_TW_Well block and groups together the different BBICS with high sensitivity (hs_bbics) and low leakage (ll_bbics).</p>
+<div>
+  <img src="/img/projects/lfi/RadhardGDS/1.png" alt="Complete layout of the Radhard board">
+  <p style="text-align:center; font-style:italic;">Complete layout of the Radhard board</p>
+</div>
+<div style="display:flex; justify-content:center; gap:2em;">
+  <div>
+    <img src="/img/projects/lfi/RadhardGDS/2.png" alt="Layout of the isolated single BBICS" style="max-width:100%;">
+    <p style="text-align:center; font-style:italic;">Layout of the isolated single BBICS</p>
+  </div>
+  <div>
+    <img src="/img/projects/lfi/RadhardGDS/3.png" alt="Layout of the BBICS block" style="max-width:100%;">
+    <p style="text-align:center; font-style:italic;">Layout of the BBICS block</p>
+  </div>
+</div>
+<div>
+  <img src="/img/projects/lfi/RadhardGDS/4.png" alt="Zoom on the layout of the multiple BBICS in the Calisson_pattern_Well block" style="max-width:100%;">
+  <p style="text-align:center; font-style:italic;">Zoom on the layout of the multiple BBICS in the Calisson_pattern_Well block</p>
+</div>
+<hr>
+<h3 id="bbics-functionality-verification">BBICS Functionality Verification<a hidden class="anchor" aria-hidden="true" href="#bbics-functionality-verification">#</a></h3>
+<p>To verify the functionality of the BBICS, we first perform characterization at different laser energies and pulse widths.</p>
+<p>To achieve this, we used the following experimental setup:</p>
+<div>
+  <img src="/img/projects/lfi/montage-bispot.png" alt="Setup 1 - bispot laser" style="max-width:100%;">
+  <p style="text-align:center; font-style:italic;">Setup 1 - bispot laser</p>
+</div>
+<p>The camera provides real-time information on the laser&rsquo;s position during the attack, allowing us to precisely target the desired BBICS with the help of the layout shown in the figure below.</p>
+<div style="display:flex; justify-content:center; gap:2em;">
+  <div>
+    <img src="/img/projects/lfi/screen_single_BBICS.png" alt="Location of the origin (0,0) for the attack on the single BBICS" style="max-width:100%;">
+    <p style="text-align:center; font-style:italic;">Location of the origin (0,0) for the attack on the single BBICS</p>
+  </div>
+  <div>
+    <img src="/img/projects/lfi/zone_gds_withoutPlot.JPG" alt="Characterization zone on the Radhard.gds layout (characterization 4)" style="max-width:100%;">
+    <p style="text-align:center; font-style:italic;">Characterization zone on the Radhard.gds layout (characterization 4)</p>
+  </div>
+</div>
+<hr>
+<h3 id="summary-of-characterization-parameters">Summary of Characterization Parameters<a hidden class="anchor" aria-hidden="true" href="#summary-of-characterization-parameters">#</a></h3>
+<p>Here are the parameters used to characterize the operation of the BBICS. The table below lists the different ranges of the laser attack, the step size, the maximum current sent to the optical fiber, and the pulse width.</p>
+<table>
+  <thead>
+    <tr>
+      <th>№</th>
+      <th>Range (x,y) [\(\mu m\)]</th>
+      <th>Step \(\Delta\) [\(\mu m\)]</th>
+      <th>\(I_{max}\) [mA]</th>
+      <th>PW [ns]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>(-50,-50) → (75,75)</td>
+      <td>5</td>
+      <td>75, 100, 200, 300</td>
+      <td>5, 10, 50, 100, 200, 500</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>(-20,-20) → (45,45)</td>
+      <td>0.5</td>
+      <td>50, 75, 100</td>
+      <td>5, 10, 50, 100, 200, 500</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>(-50,-50) → (75,75)</td>
+      <td>5</td>
+      <td>60, 70, 80, 90, 100</td>
+      <td>10, 50, 100, 200, 500</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>(-150,-150) → (100,150)</td>
+      <td>5</td>
+      <td>80, 100, 200, 300, 400</td>
+      <td>10, 50, 100, 200, 500</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>(-30,0) → (70,70)</td>
+      <td>1</td>
+      <td>100, 200, 300, 400, 500, 1000</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Table 1:</strong> Characterization</p>
+<hr>
+<h3 id="results-of-the-characterization">Results of the characterization<a hidden class="anchor" aria-hidden="true" href="#results-of-the-characterization">#</a></h3>
+<div style="text-align:center;">
+  <img src="/img/projects/lfi/subplot.png" alt="BBICS characterization" style="max-width:100%;">
+</div>
+<h4 id="characterization-on-the-calisson_pattern_well-block">Characterization on the Calisson_pattern_Well Block<a hidden class="anchor" aria-hidden="true" href="#characterization-on-the-calisson_pattern_well-block">#</a></h4>
+<p>We also performed a characterization on the block containing the other BBICS, although these are not the ones we will attack first.</p>
+<div style="text-align:center;">
+  <img src="/img/projects/lfi/subplot_multi.png" alt="Characterization on the Calisson_pattern_Well block" style="max-width:100%;">
+</div>
+<p>We can already observe two surprising results from these characterizations:</p>
+<ol>
+<li>Only 4 flags are present (no fault, single NWell, high sensitivity PWell, and both at the same time).</li>
+<li>The high sensitivity BBICS seems to detect fault injections less sensitively than the single NWell BBICS.</li>
+</ol>
+<p>My mistake here was only performing one characterization. Indeed, the result does not seem to be consistent, and we cannot be sure of the proper functioning of the other BBICS. I should have run a characterization on another test card to compare the results.</p>
+<hr>
+<h3 id="attack-protocol">Attack protocol<a hidden class="anchor" aria-hidden="true" href="#attack-protocol">#</a></h3>
+<p>Several aspects need to be tested with different parameters to try to temporarily or permanently damage our integrated mass current sensor.</p>
+<p>First, the initial idea was to attack in order to exceed the <acronym title="Total Ionizing Dose">TID</acronym> (Total Ionizing Dose) of the targeted area. Indeed, when using a pulsed laser, it generates radiation effects that, at certain doses, can modify the behavior of the electronic circuit either temporarily or permanently. These radiation effects stem from the interactions between the laser and the sensor material, generating electron-hole pairs and inducing parasitic currents. As the accumulated radiation dose increases, these currents can alter the electrical characteristics of the components, leading to malfunctions. For example, a sufficient dose of radiation can cause a threshold voltage shift in transistors, an increase in leakage current, or a degradation of the overall performance of the circuit. These changes can result in temporary malfunctions, where the sensor can recover after a certain time, or permanent malfunctions where the damage is irreversible.</p>
+<p>Next, the second way to attack the integrated mass current sensor would be to use thermal effects associated with pulsed laser attacks, thus melting certain transistors during the attack.</p>
+<p>The experimental protocol I devised for these two methods is as follows:</p>
+<ul>
+<li>Initial rough characterization (BBICS on)</li>
+<li>Turning off the board&rsquo;s power supply</li>
+<li>Attack with energy/power P for X seconds and at a frequency F</li>
+<li>Powering the board</li>
+<li>Final rough characterization (BBICS on)</li>
+</ul>
+<p>These attacks will be performed using two different laser sources (nanosecond and picosecond) to test the different effects related to these sources.</p>
+<p>The first targeted attacks we conducted on the BBICS were carried out on a different setup than the one used during the characterization (see <strong>Figure</strong> below). This setup uses the advanced laser from room E017, which has several interchangeable laser sources (nanosecond source, high-power nanosecond source: NanoHP, and a picosecond source).</p>
+<div style="text-align:center;">
+  <img src="/img/projects/lfi/montage-laserAV.png" alt="Advanced laser setup (laser AV)" style="max-width:100%;">
+</div>
+<p>This laser allowed us to carry out our experimental protocol with the greatest number of possible parameters (see tables below).</p>
+<hr>
+<h4>Summary of the attacks performed with the picosecond laser source:</h4>
+<table border="1" cellpadding="5" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Attack Name</th>
+      <th>Energy [nJ]</th>
+      <th>PW [ps]</th>
+      <th>Optics</th>
+      <th>Frequency F [Hz]</th>
+      <th>Time T [s]</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>exp_pico1</td>
+      <td>1 → 50</td>
+      <td>30</td>
+      <td>x20</td>
+      <td>continuous (1 MHz)</td>
+      <td>180 → 300</td>
+    </tr>
+    <tr>
+      <td>exp_pico2</td>
+      <td>50</td>
+      <td>30</td>
+      <td>x20</td>
+      <td>continuous (1 MHz)</td>
+      <td>180 → 300</td>
+    </tr>
+    <tr>
+      <td>exp_pico3</td>
+      <td>10 → 45</td>
+      <td>30</td>
+      <td>x20</td>
+      <td>continuous (1 MHz)</td>
+      <td>180 → 600</td>
+    </tr>
+  </tbody>
+</table>
+<p><strong>Table 3:</strong> Attacks performed with the picosecond source</p>
+<div class="results" style="margin-bottom: 50px; margin-top: 50px;">
+  <h2>Results</h2>
+  <h3>Nanosecond Source</h3>
+  <p><strong>Summary of Results:</strong><br>
+  All attacks using the nanosecond laser source (experiments exp1 to exp17) were <strong>unsuccessful</strong> in causing damage or detectable effects on the BBICS. Comparisons of the sensor’s performance before and after the attacks showed no significant changes, meaning the sensors continued to function as before.</p>
+  <p><strong>Challenges Faced:</strong><br>
+  Increasing the attack duration might have led to more significant effects, but the laser would often <strong>overheat</strong> and shut down when performing consecutive attacks or extended attacks, especially in the final experiments (exp8 to exp17) where <strong>high power</strong> and <strong>long durations</strong> were used.</p>
+  <div class="figure-wrapper">
+    <img class="figure-subplot" src="/img/projects/lfi/caracterisation.png" alt="Characterization with the nanosecond laser source">
+  </div>
+  <div class="figure-wrapper">
+    <img class="figure-subplot" style="width: 30%;" src="/img/projects/lfi/exp6.png" alt="Experiment exp6 (2.8W - 500ns - 90s)">
+    <img class="figure-subplot" style="width: 30%;" src="/img/projects/lfi/exp8.png" alt="Experiment exp8 (2.8W - 1s - 60s)">
+    <img class="figure-subplot" style="width: 30%;" src="/img/projects/lfi/exp17.png" alt="Experiment exp17 (2.8W - 500ns - 600s)">
+  </div>
+  <p><strong>Visuals:</strong><br>
+  <ul>
+    <li>Figure 1: Initial characterization with the nanosecond laser source (10 mW at 50 ns, x20 optics)</li>
+    <li>Figure 2: Experiment exp6 (2.8W - 500ns - 90s)</li>
+    <li>Figure 3: Experiment exp8 (2.8W - 1s - 60s)</li>
+    <li>Figure 4: Experiment exp17 (2.8W - 500ns - 600s)</li>
+  </ul>
+  </p>
+  <h3>Picosecond Source</h3>
+  <p><strong>Results:</strong><br>
+  For the picosecond source, we obtained <strong>better results</strong>. We gradually increased the attack energies from 1 nJ to 50 nJ, while testing for various durations ranging from 180 to 300 seconds.</p>
+  <p>The first attack (exp_pico1) already shows that the attacks have a short-term effect on the detection range of the BBICS. Indeed, as the energy increases, we notice that the detection threshold of the BBICS gradually decreases.</p>
+  <p><strong>Influence of Duration:</strong><br>
+  Based on the results, the attack duration does not seem to have a significant influence on the detection threshold.</p>
+  <div class="figure-wrapper">
+    <img class="figure-subplot" src="/img/projects/lfi/carac_pico_15nJ.png" alt="Experiment exp_pico1 (1 → 50nJ - 30ps - 180 → 300s)">
+  </div>
+  <p><strong>Visuals:</strong><br>
+  <ul>
+    <li>Figure 5: Comparison of attack results from 10 nJ to 15 nJ for 180 and 300 s (characterization done at 0.1 nJ and 30 ps)</li>
+  </ul>
+  </p>
+  <p>As the energy of the attack increases, this reduction in the detection range of the transient current sensor becomes more pronounced. These results, obtained with the picosecond laser, support the idea that it is possible to conduct an attack that could permanently or temporarily bias the sensor. After a certain time, the BBICS would return to its normal detection threshold.</p>
+  <p>Another step in the analysis, which I did not have time to conduct, would be to measure how long it takes for the sensor to return to its initial state after an off-power attack.</p>
+  <p><strong>Higher Energy Attacks:</strong><br>
+  New attacks with higher energy were conducted. In Figure 6, we can see the characterizations done after attacks with 35 to 40 nJ. In this energy range, the reduction in the detection range is not as obvious as between 10 nJ and 15 nJ, but it remains present.</p>
+  <p>Finally, by increasing the energy further, we achieved a permanent BBICS failure for an energy of 45 nJ during a 300-second attack. The first attack that permanently biased the BBICS was performed with 50 nJ for 180 seconds and was confirmed by another attack at 45 nJ for 300 seconds on a different board.</p>
+  <div class="figure-wrapper">
+    <img class="figure-subplot" style="width: 80%;" src="/img/projects/lfi/caracterisation_pico_35_40nJ.png" alt="Characterization after attacks with 35 to 40 nJ">
+  </div>
+  <p><strong>Visuals:</strong><br>
+  <ul>
+    <li>Figure 7: BBICS attack at 50 nJ 30 ps on board number 4</li>
+    <li>Figure 8: BBICS attack at 45 nJ 30 ps on board number 6</li>
+  </ul>
+  </p>
+</div>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+<nav class="paginav">
+  <a class="next" href="https://www.noe.backert.fr/projects/imageprediction/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Machine Learning Project</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://www.noe.backert.fr/">My Personnal Blog - Noé Backert</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

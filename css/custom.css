@@ -1,0 +1,56 @@
+/* Dark mode links */
+body.dark a,
+body.dark a:link,
+body.dark a:visited,
+body.dark a:hover,
+body.dark a:focus,
+body.dark a:active {
+  color: rgb(215, 200, 42) !important;
+  text-decoration: none !important;
+}
+
+/* Dark mode hover */
+body.dark a:hover,
+body.dark a:focus,
+body.dark a:active {
+  color: rgb(255, 179, 0) !important;
+}
+body:not(.dark) code {
+  color: darkorange;
+  background-color: #eee;
+}
+
+body:not(.dark) pre code {
+  color: darkorange;
+  background-color: #f5f5f5;
+}
+
+
+
+/* Light mode links */
+body:not(.dark) a,
+body:not(.dark) a:link,
+body:not(.dark) a:visited,
+body:not(.dark) a:hover,
+body:not(.dark) a:focus,
+body:not(.dark) a:active {
+  color: darkorange !important;
+  text-decoration: none !important;
+}
+
+/* Light mode hover */
+body:not(.dark) a:hover,
+body:not(.dark) a:focus,
+body:not(.dark) a:active {
+  color: rgb(255, 179, 0) !important;
+}
+
+body.dark code {
+  color: #FFA500;
+  background-color: #333;
+}
+
+body.dark pre code {
+  color: #FFD700;
+  background-color: #222;
+}
