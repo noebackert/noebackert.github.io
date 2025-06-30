@@ -6,7 +6,7 @@ tags: ["crypto", "pwn", "HTB"]
 
 ## Challenge Description
 
-...
+This is a test CTF
 
 ## Solution
 
