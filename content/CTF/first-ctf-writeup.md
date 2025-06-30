@@ -1,6 +1,7 @@
 ---
 title: "First CTF Writeup"
 date: 2025-06-30T15:00:00+02:00
+draft: true
 tags: ["crypto", "pwn", "HTB"]
 ---
 
