@@ -1,42 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
-  <channel>
-    <title>Portfolio on My Personnal Blog - Noé Backert</title>
-    <link>https://www.noe.backert.fr/tags/portfolio/</link>
-    <description>Recent content in Portfolio on My Personnal Blog - Noé Backert</description>
-    <generator>Hugo -- 0.147.9</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 30 Jun 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://www.noe.backert.fr/tags/portfolio/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Noé Backert - Resume</title>
-      <link>https://www.noe.backert.fr/resume/</link>
-      <pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate>
-      <guid>https://www.noe.backert.fr/resume/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Computer Science Student | Forensics enthusiast&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&#34;https://github.com/noebackert&#34;&gt;&lt;img alt=&#34;GitHub&#34; loading=&#34;lazy&#34; src=&#34;https://img.shields.io/badge/GitHub-noebackert-black?logo=github&#34;&gt;&lt;/a&gt;
-&lt;a href=&#34;https://www.linkedin.com/in/noebackert/&#34;&gt;&lt;img alt=&#34;LinkedIn&#34; loading=&#34;lazy&#34; src=&#34;https://img.shields.io/badge/LinkedIn-noebackert-blue?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTYuNjkzIDU2LjY5MyIgaGVpZ2h0PSI1Ni42OTNweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDU2LjY5MyA1Ni42OTMiIHdpZHRoPSI1Ni42OTNweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGc+PHBhdGggZD0iTTMwLjA3MSwyNy4xMDF2LTAuMDc3Yy0wLjAxNiwwLjAyNi0wLjAzMywwLjA1Mi0wLjA1LDAuMDc3SDMwLjA3MXoiLz48cGF0aCBkPSJNNDkuMjY1LDQuNjY3SDcuMTQ1Yy0yLjAxNiwwLTMuNjUxLDEuNTk2LTMuNjUxLDMuNTYzdjQyLjYxM2MwLDEuOTY2LDEuNjM1LDMuNTYyLDMuNjUxLDMuNTYyaDQyLjEyICAgYzIuMDE5LDAsMy42NTQtMS41OTcsMy42NTQtMy41NjJWOC4yM0M1Mi45MTksNi4yNjIsNTEuMjgzLDQuNjY3LDQ5LjI2NSw0LjY2N3ogTTE4LjQ3NSw0Ni4zMDRoLTcuNDY1VjIzLjg0NWg3LjQ2NVY0Ni4zMDR6ICAgIE0xNC43NDMsMjAuNzc3aC0wLjA1Yy0yLjUwNCwwLTQuMTI0LTEuNzI1LTQuMTI0LTMuODhjMC0yLjIwMywxLjY3LTMuODgsNC4yMjMtMy44OGMyLjU1NCwwLDQuMTI1LDEuNjc3LDQuMTc1LDMuODggICBDMTguOTY3LDE5LjA1MiwxNy4zNDUsMjAuNzc3LDE0Ljc0MywyMC43Nzd6IE00NS4zOTQsNDYuMzA0aC03LjQ2NVYzNC4yODZjMC0zLjAxOC0xLjA4LTUuMDc4LTMuNzgxLTUuMDc4ICAgYy0yLjA2MiwwLTMuMjksMS4zODktMy44MzEsMi43MzFjLTAuMTk3LDAuNDc5LTAuMjQ1LDEuMTQ5LTAuMjQ1LDEuODIxdjEyLjU0M2gtNy40NjVjMCwwLDAuMDk4LTIwLjM1NCwwLTIyLjQ1OWg3LjQ2NXYzLjE3OSAgIGMwLjk5Mi0xLjUzLDIuNzY2LTMuNzA5LDYuNzI5LTMuNzA5YzQuOTExLDAsOC41OTQsMy4yMTEsOC41OTQsMTAuMTFWNDYuMzA0eiIvPjwvZz48L3N2Zz4=&#34;&gt;&lt;/a&gt;
-&lt;a href=&#34;https://www.noe.backert.fr/files/Resume_Noe_Backert_en.pdf&#34;&gt;&lt;img alt=&#34;Download CV&#34; loading=&#34;lazy&#34; src=&#34;https://img.shields.io/badge/Resume-noebackert-black?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGUvPjxnIGRhdGEtbmFtZT0iMSIgaWQ9Il8xIj48cGF0aCBkPSJNMjU1LjEzLDM4NS41NGExNSwxNSwwLDAsMS0xMS4xNC01TDEwMy42NywyMjQuOTNhMTUsMTUsMCwwLDEsMTEuMTQtMjVIMTcxVjYzYTE1LDE1LDAsMCwxLDE1LTE1SDMyNC4zYTE1LDE1LDAsMCwxLDE1LDE1VjE5OS44OWg1Ni4xNmExNSwxNSwwLDAsMSwxMS4xNCwyNUwyNjYuMjcsMzgwLjU4QTE1LDE1LDAsMCwxLDI1NS4xMywzODUuNTRaTTE0OC41MywyMjkuODlsMTA2LjYsMTE4LjI1TDM2MS43NCwyMjkuODlIMzI0LjNhMTUsMTUsMCwwLDEtMTUtMTVWNzhIMjAxVjIxNC44OWExNSwxNSwwLDAsMS0xNSwxNVoiLz48cGF0aCBkPSJNMzkwLjg0LDQ1MEgxMTkuNDNhNjUuMzcsNjUuMzcsMCwwLDEtNjUuMy02NS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0EzNS4zNCwzNS4zNCwwLDAsMCwxMTkuNDMsNDIwSDM5MC44NGEzNS4zMywzNS4zMywwLDAsMCwzNS4yOS0zNS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0E2NS4zNyw2NS4zNywwLDAsMSwzOTAuODQsNDUwWiIvPjwvZz48L3N2Zz4=&#34;&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-about-me&#34;&gt;🧑‍💻 About Me&lt;/h2&gt;
-&lt;p&gt;Hello! I’m &lt;strong&gt;Noé Backert&lt;/strong&gt;, a computer science student at &lt;a href=&#34;https://www.mines-stetienne.fr/&#34;&gt;École des Mines de Saint-Étienne&lt;/a&gt; with a passion for &lt;strong&gt;cybersecurity&lt;/strong&gt; and &lt;strong&gt;hardware security&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;I am currently interning at EMSE, working on &lt;strong&gt;Laser Fault Injection&lt;/strong&gt; research.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;Age:&lt;/strong&gt; 23&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Location:&lt;/strong&gt; Toulouse, FRANCE&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Email:&lt;/strong&gt; &lt;a href=&#34;mailto:noe.backert@gmail.com&#34;&gt;noe.backert [at] gmail.com&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Hobbies:&lt;/strong&gt; &lt;a href=&#34;https://en.wikipedia.org/wiki/Cycle_ball&#34;&gt;Cycleball&lt;/a&gt;, &lt;a href=&#34;https://en.wikipedia.org/wiki/Kendama&#34;&gt;Kendama&lt;/a&gt;, Workout&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h2 id=&#34;-education&#34;&gt;🎓 Education&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Master of Engineering (Information Security)&lt;/strong&gt;&lt;br&gt;
-&lt;a href=&#34;https://www.concordia.ca/&#34;&gt;Concordia University&lt;/a&gt;, Canada&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Engineering Degree (Microelectronics &amp;amp; Informatics)&lt;/strong&gt;&lt;br&gt;
-&lt;a href=&#34;https://fr.wikipedia.org/wiki/%C3%89cole_nationale_sup%C3%A9rieure_des_mines_de_Saint-%C3%89tienne&#34;&gt;Mines Saint-Étienne (EMSE)&lt;/a&gt;, France&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Portfolio on My Personnal Blog - Noé Backert</title><link>https://noebackert.github.io/MyBlog/tags/portfolio/</link><description>Recent content in Portfolio on My Personnal Blog - Noé Backert</description><generator>Hugo -- 0.147.9</generator><language>en-us</language><lastBuildDate>Mon, 30 Jun 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://noebackert.github.io/MyBlog/tags/portfolio/index.xml" rel="self" type="application/rss+xml"/><item><title>Noé Backert - Resume</title><link>https://noebackert.github.io/MyBlog/resume/</link><pubDate>Mon, 30 Jun 2025 00:00:00 +0000</pubDate><guid>https://noebackert.github.io/MyBlog/resume/</guid><description>&lt;p>&lt;strong>Computer Science Student | Forensics enthusiast&lt;/strong>&lt;/p>
+&lt;p>&lt;a href="https://github.com/noebackert">&lt;img alt="GitHub" loading="lazy" src="https://img.shields.io/badge/GitHub-noebackert-black?logo=github">&lt;/a>
+&lt;a href="https://www.linkedin.com/in/noebackert/">&lt;img alt="LinkedIn" loading="lazy" src="https://img.shields.io/badge/LinkedIn-noebackert-blue?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTYuNjkzIDU2LjY5MyIgaGVpZ2h0PSI1Ni42OTNweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDU2LjY5MyA1Ni42OTMiIHdpZHRoPSI1Ni42OTNweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGc+PHBhdGggZD0iTTMwLjA3MSwyNy4xMDF2LTAuMDc3Yy0wLjAxNiwwLjAyNi0wLjAzMywwLjA1Mi0wLjA1LDAuMDc3SDMwLjA3MXoiLz48cGF0aCBkPSJNNDkuMjY1LDQuNjY3SDcuMTQ1Yy0yLjAxNiwwLTMuNjUxLDEuNTk2LTMuNjUxLDMuNTYzdjQyLjYxM2MwLDEuOTY2LDEuNjM1LDMuNTYyLDMuNjUxLDMuNTYyaDQyLjEyICAgYzIuMDE5LDAsMy42NTQtMS41OTcsMy42NTQtMy41NjJWOC4yM0M1Mi45MTksNi4yNjIsNTEuMjgzLDQuNjY3LDQ5LjI2NSw0LjY2N3ogTTE4LjQ3NSw0Ni4zMDRoLTcuNDY1VjIzLjg0NWg3LjQ2NVY0Ni4zMDR6ICAgIE0xNC43NDMsMjAuNzc3aC0wLjA1Yy0yLjUwNCwwLTQuMTI0LTEuNzI1LTQuMTI0LTMuODhjMC0yLjIwMywxLjY3LTMuODgsNC4yMjMtMy44OGMyLjU1NCwwLDQuMTI1LDEuNjc3LDQuMTc1LDMuODggICBDMTguOTY3LDE5LjA1MiwxNy4zNDUsMjAuNzc3LDE0Ljc0MywyMC43Nzd6IE00NS4zOTQsNDYuMzA0aC03LjQ2NVYzNC4yODZjMC0zLjAxOC0xLjA4LTUuMDc4LTMuNzgxLTUuMDc4ICAgYy0yLjA2MiwwLTMuMjksMS4zODktMy44MzEsMi43MzFjLTAuMTk3LDAuNDc5LTAuMjQ1LDEuMTQ5LTAuMjQ1LDEuODIxdjEyLjU0M2gtNy40NjVjMCwwLDAuMDk4LTIwLjM1NCwwLTIyLjQ1OWg3LjQ2NXYzLjE3OSAgIGMwLjk5Mi0xLjUzLDIuNzY2LTMuNzA5LDYuNzI5LTMuNzA5YzQuOTExLDAsOC41OTQsMy4yMTEsOC41OTQsMTAuMTFWNDYuMzA0eiIvPjwvZz48L3N2Zz4=">&lt;/a>
+&lt;a href="https://noebackert.github.io/MyBlog/files/Resume_Noe_Backert_en.pdf">&lt;img alt="Download CV" loading="lazy" src="https://img.shields.io/badge/Resume-noebackert-black?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGUvPjxnIGRhdGEtbmFtZT0iMSIgaWQ9Il8xIj48cGF0aCBkPSJNMjU1LjEzLDM4NS41NGExNSwxNSwwLDAsMS0xMS4xNC01TDEwMy42NywyMjQuOTNhMTUsMTUsMCwwLDEsMTEuMTQtMjVIMTcxVjYzYTE1LDE1LDAsMCwxLDE1LTE1SDMyNC4zYTE1LDE1LDAsMCwxLDE1LDE1VjE5OS44OWg1Ni4xNmExNSwxNSwwLDAsMSwxMS4xNCwyNUwyNjYuMjcsMzgwLjU4QTE1LDE1LDAsMCwxLDI1NS4xMywzODUuNTRaTTE0OC41MywyMjkuODlsMTA2LjYsMTE4LjI1TDM2MS43NCwyMjkuODlIMzI0LjNhMTUsMTUsMCwwLDEtMTUtMTVWNzhIMjAxVjIxNC44OWExNSwxNSwwLDAsMS0xNSwxNVoiLz48cGF0aCBkPSJNMzkwLjg0LDQ1MEgxMTkuNDNhNjUuMzcsNjUuMzcsMCwwLDEtNjUuMy02NS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0EzNS4zNCwzNS4zNCwwLDAsMCwxMTkuNDMsNDIwSDM5MC44NGEzNS4zMywzNS4zMywwLDAsMCwzNS4yOS0zNS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0E2NS4zNyw2NS4zNywwLDAsMSwzOTAuODQsNDUwWiIvPjwvZz48L3N2Zz4=">&lt;/a>&lt;/p>
+&lt;hr>
+&lt;h2 id="-about-me">🧑‍💻 About Me&lt;/h2>
+&lt;p>Hello! I’m &lt;strong>Noé Backert&lt;/strong>, a computer science student at &lt;a href="https://www.mines-stetienne.fr/">École des Mines de Saint-Étienne&lt;/a> with a passion for &lt;strong>cybersecurity&lt;/strong> and &lt;strong>hardware security&lt;/strong>.&lt;/p>
+&lt;p>I am currently interning at EMSE, working on &lt;strong>Laser Fault Injection&lt;/strong> research.&lt;/p>
+&lt;ul>
+&lt;li>&lt;strong>Age:&lt;/strong> 23&lt;/li>
+&lt;li>&lt;strong>Location:&lt;/strong> Toulouse, FRANCE&lt;/li>
+&lt;li>&lt;strong>Email:&lt;/strong> &lt;a href="mailto:noe.backert@gmail.com">noe.backert [at] gmail.com&lt;/a>&lt;/li>
+&lt;li>&lt;strong>Hobbies:&lt;/strong> &lt;a href="https://en.wikipedia.org/wiki/Cycle_ball">Cycleball&lt;/a>, &lt;a href="https://en.wikipedia.org/wiki/Kendama">Kendama&lt;/a>, Workout&lt;/li>
+&lt;/ul>
+&lt;hr>
+&lt;h2 id="-education">🎓 Education&lt;/h2>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Master of Engineering (Information Security)&lt;/strong>&lt;br>
+&lt;a href="https://www.concordia.ca/">Concordia University&lt;/a>, Canada&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Engineering Degree (Microelectronics &amp;amp; Informatics)&lt;/strong>&lt;br>
+&lt;a href="https://fr.wikipedia.org/wiki/%C3%89cole_nationale_sup%C3%A9rieure_des_mines_de_Saint-%C3%89tienne">Mines Saint-Étienne (EMSE)&lt;/a>, France&lt;/p></description></item></channel></rss>
