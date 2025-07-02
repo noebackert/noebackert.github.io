@@ -1,0 +1,89 @@
+{{- define "main" }}
+
+{{- if .Title }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{- if .Description }}
+    <div class="post-description">
+        {{ .Description }}
+    </div>
+    {{- end }}
+</header>
+{{- end }}
+
+<!-- Search Bar -->
+<div class="search-container">
+    <input type="text" id="tag-search" placeholder="Search tags..." class="search-input">
+    <div class="search-stats">
+        <span id="tag-count">{{ len .Data.Terms }}</span> tags found
+    </div>
+</div>
+
+<ul class="terms-tags" id="tags-list">
+    {{- $type := .Type }}
+    {{- range $key, $value := .Data.Terms.Alphabetical }}
+    {{- $name := .Name }}
+    {{- $count := .Count }}
+    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+    <li class="tag-item" data-tag-name="{{ lower .Name }}">
+        <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
+    </li>
+    {{- end }}
+    {{- end }}
+</ul>
+
+<div id="no-results" class="no-results" style="display: none;">
+    <p>No tags found matching your search.</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('tag-search');
+    const tagsList = document.getElementById('tags-list');
+    const tagItems = document.querySelectorAll('.tag-item');
+    const tagCount = document.getElementById('tag-count');
+    const noResults = document.getElementById('no-results');
+    const totalTags = tagItems.length;
+
+    function filterTags() {
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        tagItems.forEach(function(item) {
+            const tagName = item.getAttribute('data-tag-name');
+            
+            if (tagName.includes(searchTerm)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update stats
+        tagCount.textContent = visibleCount;
+        
+        // Show/hide no results message
+        if (visibleCount === 0 && searchTerm !== '') {
+            noResults.style.display = 'block';
+            tagsList.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            tagsList.style.display = 'block';
+        }
+    }
+
+    // Add event listener for real-time search
+    searchInput.addEventListener('input', filterTags);
+    
+    // Clear search on escape key
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            searchInput.value = '';
+            filterTags();
+        }
+    });
+});
+</script>
+
+{{- end }}{{/* end main */ -}}

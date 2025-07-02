@@ -1,0 +1,195 @@
+{{- define "main" }}
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+<!-- Search Bar for Posts (only show on tag/category pages) -->
+{{- if and (eq .Kind "term") $paginator.Pages }}
+<div class="search-container">
+    <input type="text" id="post-search" placeholder="Search posts in this tag..." class="search-input">
+    <div class="search-stats">
+        <span id="post-count">{{ len $paginator.Pages }}</span> posts found
+    </div>
+</div>
+{{- end }}
+
+{{- if not $paginator.Pages }}
+{{- if eq .Kind "term" }}
+<div class="post-entry">
+    <header class="entry-header">
+        <h2>No posts found</h2>
+    </header>
+    <div class="entry-content">
+        <p>No posts are tagged with "{{ .Title }}".</p>
+    </div>
+</div>
+{{- end }}
+{{- end }}
+
+{{- if $paginator.Pages }}
+{{- $term := .Data.Term }}
+<div id="posts-container">
+{{- range $index, $page := $paginator.Pages }}
+
+{{- $class := "post-entry" }}
+
+{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
+{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+{{- $class = "first-entry" }}
+{{- else if $term }}
+{{- $class = "post-entry tag-entry-header" }}
+{{- end }}
+
+<article class="{{ $class }} post-item" 
+         data-title="{{ lower $page.Title }}" 
+         data-summary="{{ lower $page.Summary }}"
+         data-tags="{{ delimit (apply $page.Params.tags "lower" ".") " " }}">
+    {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+    {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+    <header class="entry-header">
+        <h2>
+            {{- .Title }}
+            {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+        </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+        {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+</div>
+
+<div id="no-posts-results" class="no-results" style="display: none;">
+    <p>No posts found matching your search.</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const postSearch = document.getElementById('post-search');
+    if (!postSearch) return; // Exit if search doesn't exist on this page
+    
+    const postsContainer = document.getElementById('posts-container');
+    const postItems = document.querySelectorAll('.post-item');
+    const postCount = document.getElementById('post-count');
+    const noResults = document.getElementById('no-posts-results');
+    const totalPosts = postItems.length;
+
+    function filterPosts() {
+        const searchTerm = postSearch.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        postItems.forEach(function(item) {
+            const title = item.getAttribute('data-title') || '';
+            const summary = item.getAttribute('data-summary') || '';
+            const tags = item.getAttribute('data-tags') || '';
+            
+            const searchContent = title + ' ' + summary + ' ' + tags;
+            
+            if (searchContent.includes(searchTerm)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update stats
+        postCount.textContent = visibleCount;
+        
+        // Show/hide no results message
+        if (visibleCount === 0 && searchTerm !== '') {
+            noResults.style.display = 'block';
+            postsContainer.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            postsContainer.style.display = 'block';
+        }
+    }
+
+    // Add event listener for real-time search
+    postSearch.addEventListener('input', filterPosts);
+    
+    // Clear search on escape key
+    postSearch.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            postSearch.value = '';
+            filterPosts();
+        }
+    });
+});
+</script>
+
+{{- end }}
+
+{{- $pag := $.Paginator }}
+
+{{- if gt $pag.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $pag.HasPrev }}
+    <a class="prev" href="{{ $pag.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ sub $pag.PageNumber 1 }}{{ end }}
+    </a>
+    {{- end }}
+    {{- if $pag.HasNext }}
+    <a class="next" href="{{ $pag.Next.URL | absURL }}">
+      {{ i18n "next_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ add $pag.PageNumber 1 }}{{ end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}{{- /* end main */ -}}

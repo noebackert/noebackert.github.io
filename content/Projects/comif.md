@@ -3,7 +3,7 @@ title: "Comif Mobile App"
 date: 2023-07-01
 author: "Noé Backert"
 description: "Development of COMIF, a mobile app designed for secure communication and remote management in a business assistance context, leveraging modern mobile technologies."
-tags: ["Flutter", "PHP", "MySQL", "Mobile"]
+tags: ["Flutter", "PHP", "MySQL", "Mobile", "Backend", "Frontend", "Full Stack"]
 ---
 
 ### A bar management application for tracking expenses and consumption

@@ -1,0 +1,300 @@
+{{- define "main" }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+<!-- Search Bar for Home Page -->
+{{- if and .IsHome $paginator.Pages }}
+<div class="search-container">
+    <div class="search-input-wrapper">
+        <input type="text" id="home-search" placeholder="Search posts by title, content, or tags..." class="search-input" autocomplete="off">
+        <div id="search-suggestions" class="search-suggestions" style="display: none;"></div>
+    </div>
+    <div class="search-stats">
+        <span id="home-post-count">{{ len $paginator.Pages }}</span> posts found
+    </div>
+</div>
+
+<!-- Hidden data for search suggestions -->
+<script type="application/json" id="search-data">
+{
+    "tags": [
+        {{- $tags := slice }}
+        {{- range site.Taxonomies.tags }}
+            {{- $tags = $tags | append .Page.Title }}
+        {{- end }}
+        {{- range $index, $tag := ($tags | uniq) }}
+            {{- if gt $index 0 }},{{ end }}"{{ lower $tag }}"
+        {{- end }}
+    ]
+}
+</script>
+{{- end }}
+
+{{- if not $paginator.Pages }}
+<div class="post-entry">
+    <header class="entry-header">
+        <h2>No posts found</h2>
+    </header>
+    <div class="entry-content">
+        <p>No posts are available.</p>
+    </div>
+</div>
+{{- end }}
+
+{{- if $paginator.Pages }}
+<div id="home-posts-container">
+{{- range $index, $page := $paginator.Pages }}
+
+{{- $class := "post-entry" }}
+
+{{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
+{{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
+{{- $class = "first-entry" }}
+{{- end }}
+
+<article class="{{ $class }} home-post-item" 
+         data-title="{{ lower $page.Title }}" 
+         data-summary="{{ lower $page.Summary }}"
+         data-content="{{ lower $page.Content | plainify | truncate 500 }}"
+         data-tags="{{ delimit (apply $page.Params.tags "lower" ".") " " }}"
+         data-categories="{{ delimit (apply $page.Params.categories "lower" ".") " " }}">
+    {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+    {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+    <header class="entry-header">
+        <h2>
+            {{- .Title }}
+            {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+        </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+        {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+</div>
+
+<div id="home-no-posts-results" class="no-results" style="display: none;">
+    <p>No posts found matching your search. Try different keywords or tags.</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const homeSearch = document.getElementById('home-search');
+    if (!homeSearch) return; // Exit if search doesn't exist on this page
+    
+    const postsContainer = document.getElementById('home-posts-container');
+    const postItems = document.querySelectorAll('.home-post-item');
+    const postCount = document.getElementById('home-post-count');
+    const noResults = document.getElementById('home-no-posts-results');
+    const searchSuggestions = document.getElementById('search-suggestions');
+    const totalPosts = postItems.length;
+    
+    // Load search data
+    let searchData = { tags: [] };
+    try {
+        const searchDataElement = document.getElementById('search-data');
+        if (searchDataElement) {
+            searchData = JSON.parse(searchDataElement.textContent);
+        }
+    } catch (e) {
+        console.log('Could not load search data');
+    }
+
+    function filterHomePosts() {
+        const searchTerm = homeSearch.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        postItems.forEach(function(item) {
+            const title = item.getAttribute('data-title') || '';
+            const summary = item.getAttribute('data-summary') || '';
+            const content = item.getAttribute('data-content') || '';
+            const tags = item.getAttribute('data-tags') || '';
+            const categories = item.getAttribute('data-categories') || '';
+            
+            // Combine all searchable content
+            const searchContent = title + ' ' + summary + ' ' + content + ' ' + tags + ' ' + categories;
+            
+            if (searchTerm === '' || searchContent.includes(searchTerm)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update stats
+        postCount.textContent = visibleCount;
+        
+        // Show/hide no results message
+        if (visibleCount === 0 && searchTerm !== '') {
+            noResults.style.display = 'block';
+            postsContainer.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            postsContainer.style.display = 'block';
+        }
+    }
+    
+    function showSuggestions() {
+        const searchTerm = homeSearch.value.toLowerCase().trim();
+        
+        if (searchTerm.length < 2) {
+            searchSuggestions.style.display = 'none';
+            return;
+        }
+        
+        const suggestions = searchData.tags
+            .filter(tag => tag.includes(searchTerm) && tag !== searchTerm)
+            .slice(0, 5);
+            
+        if (suggestions.length > 0) {
+            searchSuggestions.innerHTML = suggestions
+                .map(tag => `<div class="suggestion-item" data-suggestion="${tag}">${tag}</div>`)
+                .join('');
+            searchSuggestions.style.display = 'block';
+        } else {
+            searchSuggestions.style.display = 'none';
+        }
+    }
+    
+    function hideSuggestions() {
+        setTimeout(() => {
+            searchSuggestions.style.display = 'none';
+        }, 200);
+    }
+
+    // Add event listener for real-time search
+    homeSearch.addEventListener('input', function() {
+        filterHomePosts();
+        showSuggestions();
+    });
+    
+    // Handle suggestion clicks
+    searchSuggestions.addEventListener('click', function(e) {
+        if (e.target.classList.contains('suggestion-item')) {
+            homeSearch.value = e.target.getAttribute('data-suggestion');
+            filterHomePosts();
+            hideSuggestions();
+            homeSearch.focus();
+        }
+    });
+    
+    // Hide suggestions when input loses focus
+    homeSearch.addEventListener('blur', hideSuggestions);
+    
+    // Show suggestions when input gains focus (if there's already text)
+    homeSearch.addEventListener('focus', function() {
+        if (homeSearch.value.length >= 2) {
+            showSuggestions();
+        }
+    });
+    
+    // Clear search on escape key
+    homeSearch.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            homeSearch.value = '';
+            filterHomePosts();
+            hideSuggestions();
+        } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const firstSuggestion = searchSuggestions.querySelector('.suggestion-item');
+            if (firstSuggestion) {
+                firstSuggestion.classList.add('suggestion-active');
+            }
+        }
+    });
+    
+    // Add search tips functionality
+    homeSearch.addEventListener('focus', function() {
+        if (!document.getElementById('search-tips')) {
+            const tips = document.createElement('div');
+            tips.id = 'search-tips';
+            tips.className = 'search-tips';
+            tips.innerHTML = `
+                <small>
+                    💡 <strong>Search tips:</strong> 
+                    Search by title, content, tags, or categories. 
+                    Try: "crypto", "python", "ctf", "machine learning", etc.
+                    <br>
+                    <kbd>Ctrl+K</kbd> to focus search, <kbd>Esc</kbd> to clear
+                </small>
+            `;
+            homeSearch.parentNode.appendChild(tips);
+        }
+    });
+    
+    // Global keyboard shortcut (Ctrl+K) to focus search
+    document.addEventListener('keydown', function(e) {
+        if (e.ctrlKey && e.key === 'k') {
+            e.preventDefault();
+            homeSearch.focus();
+        }
+    });
+    
+    // Hide search tips when clicking outside
+    document.addEventListener('click', function(e) {
+        const tips = document.getElementById('search-tips');
+        if (tips && !homeSearch.contains(e.target) && !tips.contains(e.target)) {
+            tips.style.display = 'none';
+        }
+    });
+    
+    // Show search tips again when focusing
+    homeSearch.addEventListener('focus', function() {
+        const tips = document.getElementById('search-tips');
+        if (tips) {
+            tips.style.display = 'block';
+        }
+    });
+});
+</script>
+
+{{- end }}
+
+{{- $pag := $.Paginator }}
+
+{{- if gt $pag.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $pag.HasPrev }}
+    <a class="prev" href="{{ $pag.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ sub $pag.PageNumber 1 }}{{ end }}
+    </a>
+    {{- end }}
+    {{- if $pag.HasNext }}
+    <a class="next" href="{{ $pag.Next.URL | absURL }}">
+      {{ i18n "next_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ add $pag.PageNumber 1 }}{{ end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}{{- /* end main */ -}}
