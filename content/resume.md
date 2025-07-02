@@ -92,7 +92,7 @@ I am currently interning at Sopra Steria, working on the SOC Investigation team.
 
 - **[ASCON128 Implementation](/projects/ascon128)**: SystemVerilog implementation of lightweight crypto for IoT.
 - **[Laser Fault Injection Research](/projects/lfi)**: Hardware security research.
-- **[Fuzzing Framework](/projects/aiFuzzing)**: Fuzzing framework using AI to generate inputs for testing.
+- **[Fuzzing Framework](/projects/aifuzzing)**: Fuzzing framework using AI to generate inputs for testing.
 ### 💻 Software Development
 
 - **[Multiplayer Typing Game](/projects/typingGame)**: Multithreaded C game.

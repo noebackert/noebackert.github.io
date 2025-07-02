@@ -24,8 +24,8 @@
 <!-- Welcome Section -->
 {{- if and .IsHome (eq $paginator.PageNumber 1) }}
 <div class="home-welcome">
-    <h1>Welcome to My Blog</h1>
-    <p>Discover my latest CTF writeups, cybersecurity projects, and technical explorations. Use the search below to find specific topics or browse through the categories.</p>
+    <h1>Welcome to My Blog 🚀</h1>
+    <p>Discover my latest CTF writeups, cybersecurity projects, and technical explorations.</p>
 </div>
 {{- end }}
 
@@ -109,7 +109,11 @@
     {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
     <header class="entry-header">
         <h2>
-            {{- .Title }}
+            {{- if .Params.ctf_platform }}
+                <span class="ctf-platform-title">{{ .Params.ctf_platform }}</span><span class="ctf-platform-separator"> &mdash; </span>{{ .Title }}
+            {{- else }}
+                {{ .Title }}
+            {{- end }}
             {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
         </h2>
     </header>
@@ -117,7 +121,13 @@
     <div class="entry-content">
         <p>
         {{- if .Params.description }}
-            {{ .Params.description | plainify | htmlUnescape }}
+            {{- $desc := .Params.description | plainify | htmlUnescape }}
+            {{- $maxLength := .Params.descriptionLength | default (site.Params.homeDescriptionLength | default 200) }}
+            {{- if gt (len $desc) $maxLength }}
+                {{ $desc | truncate $maxLength }}...
+            {{- else }}
+                {{ $desc }}
+            {{- end }}
         {{- else }}
             {{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}
         {{- end }}
@@ -284,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
             tips.className = 'search-tips';
             tips.innerHTML = `
                 <small>
-                    💡 <strong>Search tips:</strong> 
+                    &#x1F4A1; <strong>Search tips:</strong> 
                     Search by title, content, tags, or categories. 
                     Try: "crypto", "python", "ctf", "machine learning", etc.
                     <br>

@@ -1,6 +1,6 @@
 baseURL = 'https://www.noe.backert.fr/'
 languageCode = 'en-us'
-title = 'My Personnal Blog - Noé Backert'
+title = 'Noé Backert | Blog'
 theme = 'PaperMod'
 enableEmoji = true
 
@@ -19,6 +19,8 @@ enableEmoji = true
   ShowBreadCrumbs = true
   mainSections = ["ctf", "projects"]  
   customCSS = ["css/custom.css"]
+  # Custom description truncation length for home page
+  homeDescriptionLength = 200
 
 [menu]
   [[menu.main]]
@@ -41,4 +43,4 @@ enableEmoji = true
     name = "Tags"
     url = "/tags/"
     weight = 5
-  
+

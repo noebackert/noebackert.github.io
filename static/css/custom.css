@@ -1,3 +1,18 @@
+/* CSS Variables for consistent color management */
+:root {
+  /* Primary theme colors */
+  --custom-orange: darkorange;
+  --custom-orange-rgb: 255, 165, 0;
+  --custom-orange-hover: rgb(255, 179, 0);
+  
+  /* Yellow/Gold colors for dark mode */
+  --custom-yellow: rgb(215, 200, 42);
+  --custom-yellow-rgb: 215, 200, 42;
+  --custom-yellow-hover: rgb(255, 179, 0);
+  --custom-gold: #FFD700;
+  --custom-gold-code: #FFA500;
+}
+
 /* Dark mode links */
 body.dark a,
 body.dark a:link,
@@ -5,7 +20,7 @@ body.dark a:visited,
 body.dark a:hover,
 body.dark a:focus,
 body.dark a:active {
-  color: rgb(215, 200, 42) !important;
+  color: var(--custom-yellow) !important;
   text-decoration: none !important;
 }
 
@@ -13,15 +28,15 @@ body.dark a:active {
 body.dark a:hover,
 body.dark a:focus,
 body.dark a:active {
-  color: rgb(255, 179, 0) !important;
+  color: var(--custom-yellow-hover) !important;
 }
 body:not(.dark) code {
-  color: darkorange;
+  color: var(--custom-orange);
   background-color: #eee;
 }
 
 body:not(.dark) pre code {
-  color: darkorange;
+  color: var(--custom-orange);
   background-color: #f5f5f5;
 }
 
@@ -34,7 +49,7 @@ body:not(.dark) a:visited,
 body:not(.dark) a:hover,
 body:not(.dark) a:focus,
 body:not(.dark) a:active {
-  color: darkorange !important;
+  color: var(--custom-orange) !important;
   text-decoration: none !important;
 }
 
@@ -42,16 +57,16 @@ body:not(.dark) a:active {
 body:not(.dark) a:hover,
 body:not(.dark) a:focus,
 body:not(.dark) a:active {
-  color: rgb(255, 179, 0) !important;
+  color: var(--custom-orange-hover) !important;
 }
 
 body.dark code {
-  color: #FFA500;
+  color: var(--custom-gold-code);
   background-color: #333;
 }
 
 body.dark pre code {
-  color: #FFD700;
+  color: var(--custom-gold);
   background-color: #222;
 }
 
@@ -128,8 +143,8 @@ body.dark .search-input {
 }
 
 body.dark .search-input:focus {
-  border-color: rgb(215, 200, 42);
-  box-shadow: 0 0 0 3px rgba(215, 200, 42, 0.1);
+  border-color: var(--custom-yellow);
+  box-shadow: 0 0 0 3px rgba(var(--custom-yellow-rgb), 0.1);
 }
 
 /* Light mode specific styles */
@@ -139,8 +154,8 @@ body:not(.dark) .search-input {
 }
 
 body:not(.dark) .search-input:focus {
-  border-color: darkorange;
-  box-shadow: 0 0 0 3px rgba(255, 165, 0, 0.1);
+  border-color: var(--custom-orange);
+  box-shadow: 0 0 0 3px rgba(var(--custom-orange-rgb), 0.1);
 }
 
 /* Search Tips Styles */
@@ -291,7 +306,7 @@ body.dark .suggestion-item {
 
 body.dark .suggestion-item:hover,
 body.dark .suggestion-item.suggestion-active {
-  background-color: rgb(215, 200, 42);
+  background-color: var(--custom-yellow);
   color: #1a1a1a;
 }
 
@@ -303,7 +318,7 @@ body:not(.dark) .search-suggestions {
 
 body:not(.dark) .suggestion-item:hover,
 body:not(.dark) .suggestion-item.suggestion-active {
-  background-color: darkorange;
+  background-color: var(--custom-orange);
   color: white;
 }
 
@@ -419,21 +434,21 @@ body.dark .home-welcome {
 }
 
 body.dark .home-featured-post {
-  border-color: rgb(215, 200, 42);
+  border-color: var(--custom-yellow);
 }
 
 body.dark .featured-post-badge {
-  background: rgb(215, 200, 42);
+  background: var(--custom-yellow);
   color: #1a1a1a;
 }
 
 /* Light mode specific styles */
 body:not(.dark) .home-featured-post {
-  border-color: darkorange;
+  border-color: var(--custom-orange);
 }
 
 body:not(.dark) .featured-post-badge {
-  background: darkorange;
+  background: var(--custom-orange);
   color: white;
 }
 
@@ -493,28 +508,28 @@ body.dark .home-view-all {
 }
 
 body.dark .view-all-btn {
-  background: rgb(215, 200, 42);
+  background: var(--custom-yellow);
   color: #1a1a1a !important;
-  border-color: rgb(215, 200, 42);
+  border-color: var(--custom-yellow);
 }
 
 body.dark .view-all-btn:hover {
   background: transparent;
-  color: rgb(215, 200, 42) !important;
-  box-shadow: 0 4px 12px rgba(215, 200, 42, 0.2);
+  color: var(--custom-yellow) !important;
+  box-shadow: 0 4px 12px rgba(var(--custom-yellow-rgb), 0.2);
 }
 
 /* Light mode view all section */
 body:not(.dark) .view-all-btn {
-  background: darkorange;
+  background: var(--custom-orange);
   color: white !important;
-  border-color: darkorange;
+  border-color: var(--custom-orange);
 }
 
 body:not(.dark) .view-all-btn:hover {
   background: transparent;
-  color: darkorange !important;
-  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2);
+  color: var(--custom-orange) !important;
+  box-shadow: 0 4px 12px rgba(var(--custom-orange-rgb), 0.2);
 }
 
 /* Responsive view all buttons */
@@ -534,4 +549,25 @@ body:not(.dark) .view-all-btn:hover {
     margin: 2rem 0 1.5rem 0;
     padding: 1.5rem 1rem;
   }
+}
+
+/* CTF Platform Styling */
+.ctf-platform-title {
+  color: var(--theme);
+  font-weight: 600;
+}
+
+.ctf-platform-separator {
+  color: var(--secondary);
+  margin: 0 0.5rem;
+}
+
+/* Dark mode CTF platform */
+body.dark .ctf-platform-title {
+  color: var(--custom-yellow);
+}
+
+/* Light mode CTF platform */
+body:not(.dark) .ctf-platform-title {
+  color: var(--custom-orange);
 }

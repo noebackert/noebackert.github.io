@@ -1,9 +1,11 @@
 ---
-title: "HTB Driver's Shadow"
+title: "Driver's Shadow"
+ctf_platform: "HTB"
 date: 2025-05-25T15:00:00+02:00
 description: "A critical Linux server began behaving erratically under suspected Volnaya interference, so a full memory snapshot was captured for analysis. Stealthy components embedded in the dump are altering system behavior and hiding their tracks; your task is to sift through the snapshot to uncover these concealed elements and extract any hidden payloads."
 tags: ["Forensics", "Memory", "HTB", "RAM", "Linux", "CTF", "Volatility3"]
 link: "https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Driver's%20Shadow"
+author: "Noé Backert"
 ---
 
 [HTB Link - github.com/hackthebox/business-ctf-2025](https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Driver's%20Shadow)

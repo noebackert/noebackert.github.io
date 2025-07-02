@@ -1,0 +1,201 @@
+{{- define "main" }}
+
+{{- if not .IsHome | and .Title }}
+<header class="page-header">
+  {{- partial "breadcrumbs.html" . }}
+  <h1>
+    {{ .Title }}
+    {{- if and (or (eq .Kind `term`) (eq .Kind `section`)) (.Param "ShowRssButtonInSectionTermList") }}
+    {{- with .OutputFormats.Get "rss" }}
+    <a href="{{ .RelPermalink }}" title="RSS" aria-label="RSS">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" height="23">
+        <path d="M4 11a9 9 0 0 1 9 9" />
+        <path d="M4 4a16 16 0 0 1 16 16" />
+        <circle cx="5" cy="19" r="1" />
+      </svg>
+    </a>
+    {{- end }}
+    {{- end }}
+  </h1>
+  {{- if .Description }}
+  <div class="post-description">
+    {{ .Description | markdownify }}
+  </div>
+  {{- end }}
+</header>
+{{- end }}
+
+{{- if .Content }}
+<div class="post-content">
+  {{- if not (.Param "disableAnchoredHeadings") }}
+  {{- partial "anchored_headings.html" .Content -}}
+  {{- else }}{{ .Content }}{{ end }}
+</div>
+{{- end }}
+
+{{- $pages := union .RegularPages .Sections }}
+
+{{- if .IsHome }}
+{{- $pages = where site.RegularPages "Type" "in" site.Params.mainSections }}
+{{- $pages = where $pages "Params.hiddenInHomeList" "!=" "true"  }}
+{{- end }}
+
+{{- $paginator := .Paginate $pages }}
+
+{{- if and .IsHome site.Params.homeInfoParams (eq $paginator.PageNumber 1) }}
+{{- partial "home_info.html" . }}
+{{- end }}
+
+<!-- Search Bar for CTF Posts -->
+{{- if and (eq .Kind "section") (eq .Section "ctf") $paginator.Pages }}
+<div class="search-container">
+    <input type="text" id="ctf-search" placeholder="Search CTF writeups..." class="search-input">
+    <div class="search-stats">
+        <span id="ctf-post-count">{{ len $paginator.Pages }}</span> writeups found
+    </div>
+</div>
+{{- end }}
+
+{{- if not $paginator.Pages }}
+<div class="post-entry">
+    <header class="entry-header">
+        <h2>No posts found</h2>
+    </header>
+    <div class="entry-content">
+        <p>No CTF writeups are available.</p>
+    </div>
+</div>
+{{- end }}
+
+{{- if $paginator.Pages }}
+<div id="ctf-posts-container">
+{{- range $index, $page := $paginator.Pages }}
+
+<article class="post-entry ctf-post-item" 
+         data-title="{{ lower $page.Title }}" 
+         data-summary="{{ lower $page.Summary }}"
+         data-platform="{{ lower $page.Params.ctf_platform }}"
+         data-tags="{{ delimit (apply $page.Params.tags "lower" ".") " " }}">
+    {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
+    {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
+    <header class="entry-header">
+        <h2>
+            {{- if .Params.ctf_platform }}
+                <span class="ctf-platform-title">{{ .Params.ctf_platform }}</span><span class="ctf-platform-separator"> &mdash; </span>{{ .Title }}
+            {{- else }}
+                {{ .Title }}
+            {{- end }}
+            {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+        </h2>
+    </header>
+    {{- if (ne (.Param "hideSummary") true) }}
+    <div class="entry-content">
+        <p>
+        {{- if .Params.description }}
+            {{- $desc := .Params.description | plainify | htmlUnescape }}
+            {{- $maxLength := .Params.descriptionLength | default (site.Params.homeDescriptionLength | default 200) }}
+            {{- if gt (len $desc) $maxLength }}
+                {{ $desc | truncate $maxLength }}...
+            {{- else }}
+                {{ $desc }}
+            {{- end }}
+        {{- else }}
+            {{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}
+        {{- end }}
+        </p>
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <footer class="entry-footer">
+        {{- partial "post_meta.html" . -}}
+    </footer>
+    {{- end }}
+    <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
+</article>
+{{- end }}
+</div>
+
+<div id="ctf-no-posts-results" class="no-results" style="display: none;">
+    <p>No CTF writeups found matching your search.</p>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctfSearch = document.getElementById('ctf-search');
+    if (!ctfSearch) return; // Exit if search doesn't exist on this page
+    
+    const postsContainer = document.getElementById('ctf-posts-container');
+    const postItems = document.querySelectorAll('.ctf-post-item');
+    const postCount = document.getElementById('ctf-post-count');
+    const noResults = document.getElementById('ctf-no-posts-results');
+
+    function filterCTFPosts() {
+        const searchTerm = ctfSearch.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        postItems.forEach(function(item) {
+            const title = item.getAttribute('data-title') || '';
+            const summary = item.getAttribute('data-summary') || '';
+            const platform = item.getAttribute('data-platform') || '';
+            const tags = item.getAttribute('data-tags') || '';
+            
+            // Combine all searchable content
+            const searchContent = title + ' ' + summary + ' ' + platform + ' ' + tags;
+            
+            if (searchTerm === '' || searchContent.includes(searchTerm)) {
+                item.style.display = 'block';
+                visibleCount++;
+            } else {
+                item.style.display = 'none';
+            }
+        });
+
+        // Update stats
+        postCount.textContent = visibleCount;
+        
+        // Show/hide no results message
+        if (visibleCount === 0 && searchTerm !== '') {
+            noResults.style.display = 'block';
+            postsContainer.style.display = 'none';
+        } else {
+            noResults.style.display = 'none';
+            postsContainer.style.display = 'block';
+        }
+    }
+
+    // Add event listener for real-time search
+    ctfSearch.addEventListener('input', filterCTFPosts);
+    
+    // Clear search on escape key
+    ctfSearch.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            ctfSearch.value = '';
+            filterCTFPosts();
+        }
+    });
+});
+</script>
+
+{{- end }}
+
+{{- $pag := $.Paginator }}
+
+{{- if gt $pag.TotalPages 1 }}
+<footer class="page-footer">
+  <nav class="pagination">
+    {{- if $pag.HasPrev }}
+    <a class="prev" href="{{ $pag.Prev.URL | absURL }}">
+      «&nbsp;{{ i18n "prev_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ sub $pag.PageNumber 1 }}{{ end }}
+    </a>
+    {{- end }}
+    {{- if $pag.HasNext }}
+    <a class="next" href="{{ $pag.Next.URL | absURL }}">
+      {{ i18n "next_page" }}{{ if (.Param "ShowPageNums") }}&nbsp;{{ add $pag.PageNumber 1 }}{{ end }}&nbsp;»
+    </a>
+    {{- end }}
+  </nav>
+</footer>
+{{- end }}
+
+{{- end }}{{- /* end main */ -}}

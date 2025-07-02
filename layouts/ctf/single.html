@@ -1,0 +1,70 @@
+{{- define "main" }}
+{{- if .Content }}
+<article class="post-single">
+  <header class="post-header">
+    {{ partial "breadcrumbs.html" . }}
+    <h1 class="post-title entry-hint-parent">
+      {{- if .Params.ctf_platform }}
+        <span class="ctf-platform-title">{{ .Params.ctf_platform }}</span><span class="ctf-platform-separator"> &mdash; </span>{{ .Title }}
+      {{- else }}
+        {{ .Title }}
+      {{- end }}
+      {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
+    </h1>
+    {{- if .Description }}
+    <div class="post-description">
+      {{ .Description }}
+    </div>
+    {{- end }}
+    {{- if not (.Param "hideMeta") }}
+    <div class="post-meta">
+      {{- partial "post_meta.html" . -}}
+      {{- partial "translation_list.html" . -}}
+      {{- partial "edit_post.html" . -}}
+      {{- partial "post_canonical.html" . -}}
+    </div>
+    {{- end }}
+  </header>
+  {{- $isHidden := ((.Param "cover.hidden") | default (.Param "cover.hiddenInSingle") | default .Site.Params.cover.hiddenInSingle) }}
+  {{- partial "cover.html" (dict "cxt" . "IsHome" false "isHidden" $isHidden) }}
+  {{- if (.Param "ShowToc" | default .Site.Params.ShowToc) }}
+  <div class="toc">
+    <details {{- if (.Param "TocOpen" | default .Site.Params.TocOpen) }} open{{ end }}>
+      <summary accesskey="c">
+        <span class="details">{{- i18n "toc" | default "Table of Contents" }}</span>
+      </summary>
+      <div class="inner">
+        {{- (.TableOfContents) | safeHTML }}
+      </div>
+    </details>
+  </div>
+  {{- end }}
+
+  <div class="post-content">
+    {{- if not (.Param "disableAnchoredHeadings") }}
+    {{- partial "anchored_headings.html" .Content -}}
+    {{- else }}{{ .Content }}{{ end }}
+  </div>
+
+  <footer class="post-footer">
+    {{- $tags := .GetTerms "tags" }}
+    {{- if $tags }}
+    <nav class="paginav">
+      Tags:
+      {{- range $tags }}
+      <a class="tag" href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+  </footer>
+
+  {{- if (.Param "comments" | default .Site.Params.comments) }}
+  {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+{{- end }}
+
+{{- if (.Param "ShowPostNavLinks" | default .Site.Params.ShowPostNavLinks) }}
+{{- partial "post_nav_links.html" . }}
+{{- end }}
+{{- end }}{{/* end main */ -}}
