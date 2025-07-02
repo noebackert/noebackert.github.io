@@ -1110,3 +1110,69 @@ body:not(.dark) .highlight {
     opacity: 0.7;
   }
 }
+
+/* Transparent PNG Image Handling */
+/* Add subtle background for transparent images on dark theme */
+body.dark img[src$=".png"] {
+  background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
+              linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Alternative simpler approach - uncomment this and comment above if you prefer solid background */
+/*
+body.dark img[src$=".png"] {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+*/
+
+/* Light theme - no special handling needed, but add subtle shadow for consistency */
+body:not(.dark) img[src$=".png"] {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* For images that are specifically marked as having transparent backgrounds */
+img[data-transparent="true"],
+img.transparent-bg {
+  background: linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0),
+              linear-gradient(45deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);
+  background-size: 20px 20px;
+  background-position: 0 0, 10px 10px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Override for images that should NOT have the transparent background treatment */
+body.dark img[data-transparent="false"],
+body.dark img.no-transparent-bg {
+  background: none !important;
+  padding: 0 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  body.dark img[src$=".png"] {
+    padding: 6px;
+    background-size: 15px 15px;
+    background-position: 0 0, 7.5px 7.5px;
+  }
+  
+  img[data-transparent="true"],
+  img.transparent-bg {
+    padding: 6px;
+    background-size: 15px 15px;
+    background-position: 0 0, 7.5px 7.5px;
+  }
+}

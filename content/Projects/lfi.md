@@ -46,12 +46,10 @@ Bulk Built-In Current Sensors are essential components used in modern embedded s
 
 BBICS play a critical role in securing integrated circuits against physical attacks, such as power-off laser fault injection. By ensuring that any suspicious activity is flagged, these sensors protect sensitive data and security mechanisms in embedded systems.
 
----
 
-<div style="width:50%; margin: 1em auto;">
-  <img src="/img/projects/lfi/inverter-BBICS.png">
-  <p style="text-align:center; font-style:italic;">Figure 1: Architecture of a single NP BBICS</p>
-</div>
+![BBICS Architecture](/img/projects/lfi/inverter-BBICS.png)
+*Figure 1: Architecture of a single NP BBICS*
+
 
 BBICS are composed of a latch in the middle, and are surrounded by transistors connected to N-wells and P-wells on either side. When a transient current is detected in the bulk, the transistors trigger a change in the state of the latch, which raises an alert signal. This configuration ensures the detection of anomalies in both N-type and P-type regions, maintaining comprehensive fault detection coverage in the CMOS structure.
 
@@ -103,10 +101,8 @@ Example on a CMOS inverter:
 
 Since the chip we are working on is the result of research from the SAS laboratory, we have access to the layout files of the Radhard board (Radiation Hardening). This allows us to know where to direct our efforts. In our case, we will first focus on the single_BBICS located at the top of the board, and then on the Calisson_pattern_Well block, which is located at the bottom of the pattern_SC_TW_Well block and groups together the different BBICS with high sensitivity (hs_bbics) and low leakage (ll_bbics).
 
-<div>
-  <img src="/img/projects/lfi/RadhardGDS/1.png" alt="Complete layout of the Radhard board">
-  <p style="text-align:center; font-style:italic;">Complete layout of the Radhard board</p>
-</div>
+![Complete layout of the Radhard board](/img/projects/lfi/RadhardGDS/1.png)
+*Figure 4: Complete layout of the Radhard board*
 
 <div style="display:flex; justify-content:center; gap:2em;">
   <div>
@@ -119,10 +115,8 @@ Since the chip we are working on is the result of research from the SAS laborato
   </div>
 </div>
 
-<div>
-  <img src="/img/projects/lfi/RadhardGDS/4.png" alt="Zoom on the layout of the multiple BBICS in the Calisson_pattern_Well block" style="max-width:100%;">
-  <p style="text-align:center; font-style:italic;">Zoom on the layout of the multiple BBICS in the Calisson_pattern_Well block</p>
-</div>
+![Zoom on the layout of the single BBICS](/img/projects/lfi/RadhardGDS/5.png)
+*Figure 5: Zoom on the layout of the single BBICS*
 
 ---
 
@@ -132,10 +126,8 @@ To verify the functionality of the BBICS, we first perform characterization at d
 
 To achieve this, we used the following experimental setup:
 
-<div>
-  <img src="/img/projects/lfi/montage-bispot.png" alt="Setup 1 - bispot laser" style="max-width:100%;">
-  <p style="text-align:center; font-style:italic;">Setup 1 - bispot laser</p>
-</div>
+![Experimental setup for BBICS characterization](/img/projects/lfi/montage-bispot.png)
+*Figure 6: Experimental setup for BBICS characterization*
 
 The camera provides real-time information on the laser's position during the attack, allowing us to precisely target the desired BBICS with the help of the layout shown in the figure below.
 
