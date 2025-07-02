@@ -57,9 +57,3 @@ The application is tested on different devices and platforms to ensure compatibi
 The application is deployed as a web application because the fees for Apple Store are expensive. We decided to put QRCodes next to the bar for easy access to accounts.
 
 Link: [https://portail.comif.fr/app](https://portail.comif.fr/app)
-
----
-
-## The web application:
-
-<iframe src="https://portail.comif.fr/app" style="width:100%; height:800px; border:none;"></iframe>

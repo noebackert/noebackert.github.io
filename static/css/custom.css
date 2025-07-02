@@ -608,13 +608,13 @@ body:not(.dark) .ctf-platform-title {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 20px;
+  padding: 20px 20px 120px 20px; /* Added more bottom padding for controls */
   box-sizing: border-box;
 }
 
 .lightbox-image {
   max-width: 90%;
-  max-height: 80%;
+  max-height: 70%; /* Reduced from 80% to ensure space for caption */
   object-fit: contain;
   border-radius: 8px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
@@ -662,10 +662,12 @@ body:not(.dark) .ctf-platform-title {
   background: rgba(0, 0, 0, 0.7);
   padding: 10px 20px;
   border-radius: 20px;
+  margin-bottom: 20px; /* Ensure space above controls */
+  z-index: 10001; /* Ensure caption is above other elements */
 }
 
 .lightbox-controls {
-  position: absolute;
+  position: fixed; /* Changed from absolute to fixed for better positioning */
   bottom: 30px;
   left: 50%;
   transform: translateX(-50%);
@@ -675,6 +677,7 @@ body:not(.dark) .ctf-platform-title {
   padding: 10px 20px;
   border-radius: 25px;
   backdrop-filter: blur(10px);
+  z-index: 10002; /* Higher z-index to ensure it's always on top */
 }
 
 .lightbox-controls button {
@@ -719,12 +722,12 @@ body.dark .lightbox-controls button:hover {
 /* Responsive lightbox */
 @media (max-width: 768px) {
   .lightbox-content {
-    padding: 10px;
+    padding: 10px 10px 100px 10px; /* Adjusted bottom padding for mobile */
   }
   
   .lightbox-image {
     max-width: 95%;
-    max-height: 75%;
+    max-height: 65%; /* Further reduced for mobile to ensure caption visibility */
   }
   
   .lightbox-close {
@@ -738,12 +741,13 @@ body.dark .lightbox-controls button:hover {
   .lightbox-caption {
     font-size: 14px;
     margin-top: 10px;
+    margin-bottom: 15px;
     padding: 8px 16px;
     max-width: 90%;
   }
   
   .lightbox-controls {
-    bottom: 20px;
+    bottom: 15px; /* Closer to bottom on mobile */
     gap: 10px;
     padding: 8px 16px;
   }
@@ -789,7 +793,7 @@ body:not(.dark) article img:not([data-no-lightbox]):hover {
 .lightbox-controls::after {
   content: "ESC to close • +/- to zoom • 0 to reset";
   position: absolute;
-  top: -35px;
+  top: -45px; /* Moved further up */
   left: 50%;
   transform: translateX(-50%);
   color: rgba(255, 255, 255, 0.7);
@@ -799,13 +803,14 @@ body:not(.dark) article img:not([data-no-lightbox]):hover {
   padding: 5px 10px;
   border-radius: 10px;
   pointer-events: none;
+  z-index: 10003;
 }
 
 @media (max-width: 768px) {
   .lightbox-controls::after {
     content: "Tap to close • Pinch to zoom";
     font-size: 11px;
-    top: -30px;
+    top: -35px; /* Adjusted for mobile */
   }
 }
 
@@ -909,5 +914,199 @@ body:not(.dark) article img + em {
     font-size: 0.85rem;
     padding: 0.4rem 0.8rem;
     max-width: 95%;
+  }
+}
+
+/* Enhanced Code Block Styling */
+.highlight {
+  position: relative;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* Language label for code blocks */
+.code-lang-label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background: var(--theme);
+  color: var(--entry);
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  z-index: 15;
+  opacity: 1;
+  pointer-events: none;
+  font-family: var(--font-mono, 'Courier New', monospace);
+}
+
+/* Dark mode language label */
+body.dark .code-lang-label {
+  background: var(--custom-yellow);
+  color: #1a1a1a;
+}
+
+/* Light mode language label */
+body:not(.dark) .code-lang-label {
+  background: var(--custom-orange);
+  color: white;
+}
+
+/* Code block content adjustments */
+.highlight pre {
+  padding-top: 2.5rem !important; /* Make room for language label */
+  margin: 0;
+  overflow-x: auto;
+}
+
+/* Language label for code blocks */
+.code-lang-label {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  background: var(--theme);
+  color: var(--entry);
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  z-index: 5;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+/* Show language label on hover */
+.highlight:hover .code-lang-label {
+  opacity: 0.9;
+}
+
+/* Enhanced Code Copy Button Styling */
+.copy-code {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--content) !important;
+  padding: 6px 10px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  border-radius: 6px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  backdrop-filter: blur(10px) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  z-index: 10 !important;
+  min-width: 60px !important;
+  justify-content: center !important;
+  opacity: 0 !important;
+  transform: translateY(-4px) !important;
+}
+
+/* Ensure copy button works for all code blocks */
+.highlight .copy-code {
+  pointer-events: auto !important;
+}
+
+/* Show copy button on hover */
+.highlight:hover .copy-code {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.copy-code::before {
+  content: "📋";
+  font-size: 14px;
+  margin-right: 2px;
+}
+
+.copy-code:hover {
+  background: var(--theme) !important;
+  color: var(--entry) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.copy-code:active {
+  transform: translateY(0) !important;
+}
+
+/* Dark mode copy button */
+body.dark .copy-code {
+  background: rgba(42, 42, 42, 0.95) !important;
+  border-color: #444 !important;
+  color: #e0e0e0 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+body.dark .copy-code:hover {
+  background: var(--custom-yellow) !important;
+  color: #1a1a1a !important;
+}
+
+/* Light mode copy button */
+body:not(.dark) .copy-code {
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: #ddd !important;
+  color: #333 !important;
+}
+
+body:not(.dark) .copy-code:hover {
+  background: var(--custom-orange) !important;
+  color: white !important;
+}
+
+/* Dark mode code styling */
+body.dark .highlight {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+/* Light mode code styling */
+body:not(.dark) .highlight {
+  background: #f8f9fa;
+  border-color: #e9ecef;
+}
+
+/* Responsive code blocks */
+@media (max-width: 768px) {
+  .copy-code {
+    top: 6px !important;
+    right: 6px !important;
+    padding: 4px 8px !important;
+    font-size: 11px !important;
+    min-width: 50px !important;
+  }
+  
+  .copy-code::before {
+    font-size: 12px;
+  }
+  
+  .code-lang-label {
+    top: 6px;
+    left: 8px;
+    padding: 3px 6px;
+    font-size: 9px;
+  }
+  
+  /* Always show on mobile for better UX */
+  .copy-code {
+    opacity: 0.7 !important;
+    transform: translateY(0) !important;
+  }
+  
+  .code-lang-label {
+    opacity: 0.7;
   }
 }

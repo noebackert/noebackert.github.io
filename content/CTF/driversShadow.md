@@ -3,7 +3,7 @@ title: "Driver's Shadow"
 ctf_platform: "HTB"
 date: 2025-05-25T15:00:00+02:00
 description: "A critical Linux server began behaving erratically under suspected Volnaya interference, so a full memory snapshot was captured for analysis. Stealthy components embedded in the dump are altering system behavior and hiding their tracks; your task is to sift through the snapshot to uncover these concealed elements and extract any hidden payloads."
-tags: ["Forensics", "Memory", "HTB", "RAM", "Linux", "CTF", "Volatility3"]
+tags: ["Forensics", "Memory", "HTB", "RAM", "Linux", "CTF", "Volatility3", "Cybersecurity"]
 link: "https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Driver's%20Shadow"
 author: "Noé Backert"
 ---
@@ -27,7 +27,7 @@ Convert the beginning of the banner in base64 to
 `Linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.135-1` 
 -> 
 `TGludXggdmVyc2lvbiA2LjEuMC0zNC1hbWQ2NCAoZGViaWFuLWtlcm5lbEBsaXN0cy5kZWJpYW4ub3JnKSAoZ2NjLTEyIChEZWJpYW4gMTIuMi4wLTE0K2RlYjEydTEpIDEyLjIuMCwgR05VIGxkIChHTlUgQmludXRpbHMgZm9yIERlYmlhbikgMi40MCkgIzEgU01QIFBSRUVNUFRfRFlOQU1JQyBEZWJpYW4gNi4xLjEzNS0x`
-![Profile](/img/ctf/driverShadow/profile.png)
+![Association of base64 encoded linux banners & links to volatility3 profiles ](/img/ctf/driverShadow/profile.png)
 
 Find a match from banners.json, download it using the link and extract the .gz to the `volatility3/volatility3/symbols` folder.
 
@@ -134,7 +134,7 @@ We make the same process than the previous flag :
 000030f0: a66d ca61 2cc5 4918 32ca adac            .m.a,.I.2...
 ```
 We see that the data is not in clear text, we try to xor it using the previous found key, we have :
-![domainXOR](/img/ctf/driverShadow/domainXOR.png)
+![Retrieved domain name using the xor key](/img/ctf/driverShadow/domainXOR.png)
 
 We find a good value :
 `callback.cnc2811.volnaya.htb`
@@ -270,7 +270,7 @@ if ((DAT_ffffffffc0a80478 == iVar4) || (lVar7 = lVar1, DAT_ffffffffc0a80474 == i
 If either matches the current entry’s UID or GID:
 - It **skips showing that entry** by jumping to a block (`LAB_ffffffffc0a7ebb8`) that merges/skips it.
 
-![xor.png](/img/ctf/driverShadow/xor.png)
+![Ghidra screenshot](/img/ctf/driverShadow/xor.png)
 
 By looking at thoses values, we find :
 GID -> DAT_ffffffffc0a80474 -> 000007C8h -> 1992
@@ -281,7 +281,7 @@ Flag: `1821:1992`
 ### Flag 10/10 - What string must be contained in a file in order to be hidden
 
 
-![string2.png](/img/ctf/driverShadow/string2.png)
+![String to hide a file](/img/ctf/driverShadow/string2.png)
 
 I don't really now how to link it with the program as I found it by chance..
 ![string.png](/img/ctf/driverShadow/string.png)

@@ -36,8 +36,9 @@
     </main>
     {{ partialCached "footer.html" . .Layout .Kind (.Param "hideFooter") (.Param "ShowCodeCopyButtons") -}}
     
-    {{- /* Include custom lightbox script */ -}}
+    {{- /* Include custom scripts */ -}}
     <script src="{{ "js/lightbox.js" | relURL }}"></script>
+    <script src="{{ "js/code-lang.js" | relURL }}"></script>
 </body>
 
 </html>

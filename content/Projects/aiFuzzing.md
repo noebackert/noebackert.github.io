@@ -49,8 +49,7 @@ TranFuzz operates through:
 - Ensuring **misclassification while preserving similarity** (using a high SSIM threshold) for effective, human-imperceptible adversarial examples.
 
 Example of an adversarial attack :
-![Example of a basic adversarial attack : adding some carefully selected noise to a panda image can trick an image classification model into classifying the image as a gibbon with high confidence](/img/projects/aiFuzzing/adv.png)
-
+![Figure 1: Example of a basic adversarial attack : adding some carefully selected noise to a panda image can trick an image classification model into classifying the image as a gibbon with high confidence](/img/projects/aiFuzzing/adv.png)
 *Figure 1: Example of a basic adversarial attack : adding some carefully selected noise to a panda image can trick an image classification model into classifying the image as a gibbon with high confidence*
 
 ---
@@ -81,7 +80,6 @@ The evaluation involved:
 ### Transferability results
 TranFuzz demonstrated strong transferability of adversarial examples across different models and datasets, with notable improvements over traditional methods.
 ![Figure 4: Transfer accuracy of the target model DenseNet-121 on the source model using different target datasets](/img/projects/aiFuzzing/transfResults.png)
-
 *Figure 4: Transfer accuracy of the target model DenseNet-121 on the source model using different target datasets*
 
 - **TranFuzz demonstrated strong black-box attack capabilities**, reducing DenseNet accuracy from 94% to 42% in some cases.
