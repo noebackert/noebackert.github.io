@@ -13,27 +13,11 @@ enableEmoji = true
   favicon = "/img/favicon.ico"
 
 
-defaultContentLanguage = "en"
-
-[languages]
-  [languages.en]
-    languageName = "🇬🇧 English"
-    weight = 1
-    contentDir = "content/en"
-  
-  [languages.fr]
-    languageName = "🇫🇷 Français"
-    weight = 2
-    contentDir = "content/fr"
-
-
-
 [params]
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   customCSS = ["css/custom.css"]
-  enableLanguageSwitcher = true
 
 [menu]
   [[menu.main]]
@@ -52,8 +36,3 @@ defaultContentLanguage = "en"
     name = "Projects"
     url = "/Projects/"
     weight = 4
-
-[markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
