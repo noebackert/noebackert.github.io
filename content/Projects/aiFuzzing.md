@@ -3,6 +3,7 @@ title: "TranFuzz: AI Fuzzing and Black-Box Adversarial Attack Evaluation"
 date: 2025-03-26
 author: "Noé Backert"
 description: "Study and evaluation of TranFuzz for generating black-box adversarial examples on image classification models." 
+tags: ["AI", "Fuzzing", "Adversarial Attacks", "TranFuzz", "Black-Box Attacks", "Image Classification"]
 ---
 
 ### Studying and evaluating TranFuzz for generating black-box adversarial examples on image classification models

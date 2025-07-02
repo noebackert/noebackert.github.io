@@ -3,6 +3,7 @@ title: "Multithreading Typing Game in C"
 date: 2023-06-01
 author: "Noé Backert"
 description: "Development of a multiplayer console typing game in C using sockets and threads. Focuses on managing multiple clients, time tracking, and score ranking in a client-server architecture."
+tags: ["C", "Multiplayer Game", "Sockets", "Threads", "Client-Server Architecture", "Programming"]
 ---
 
 ### Server-Client Multiplayer based game in C

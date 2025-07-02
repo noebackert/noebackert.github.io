@@ -17,6 +17,7 @@ enableEmoji = true
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
+  mainSections = ["ctf", "projects"]  
   customCSS = ["css/custom.css"]
 
 [menu]

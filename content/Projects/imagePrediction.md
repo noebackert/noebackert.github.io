@@ -3,6 +3,7 @@ title: "Machine Learning Project"
 date: 2024-01-01
 draft: false
 description: "A machine learning project comparing deep learning models, including CNNs and MLPs, for image prediction using the CIFAR-3 dataset. Demonstrates training, evaluation, and performance analysis of various classifiers."
+tags: ["Machine Learning", "Deep Learning", "CNN", "MLP", "Image Prediction", "Python", "TensorFlow", "AI", "CIFAR-3"]
 ---
 
 ### Comparison of Deep Learning/ CNN for image prediction
