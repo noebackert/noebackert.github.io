@@ -17,7 +17,7 @@ tags: ["resume", "portfolio"]
 
 Hello! I’m **Noé Backert**, a computer science student at [École des Mines de Saint-Étienne](https://www.mines-stetienne.fr/) with a passion for **cybersecurity** and **hardware security**.
 
-I am currently interning at EMSE, working on **Laser Fault Injection** research.
+I am currently interning at Sopra Steria, working on the SOC Investigation team.
 
 - **Age:** 23
 - **Location:** Toulouse, FRANCE
@@ -92,7 +92,7 @@ I am currently interning at EMSE, working on **Laser Fault Injection** research.
 
 - **[ASCON128 Implementation](/projects/ascon128)**: SystemVerilog implementation of lightweight crypto for IoT.
 - **[Laser Fault Injection Research](/projects/lfi)**: Hardware security research.
-
+- **[Fuzzing Framework](/projects/aiFuzzing)**: Fuzzing framework using AI to generate inputs for testing.
 ### 💻 Software Development
 
 - **[Multiplayer Typing Game](/projects/typingGame)**: Multithreaded C game.

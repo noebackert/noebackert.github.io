@@ -3,7 +3,7 @@ title: "Predictive typing software in C"
 date: "2023-04-01"
 author: "Noé Backert, Antoine Banchet"
 description: "Implementation of a predictive typing program in C using hash tables and trie data structures to suggest next words in real time based on word frequency and user input."
-tags: ["C", "Programming", "Predictive Typing", "Hash Table", "Trie", "Data Structures"]
+tags: ["C", "Programming"]
 ---
 
 ### Hash based predictive algorithm for typing

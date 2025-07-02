@@ -3,7 +3,7 @@ title: "Solidarity engineer project"
 date: "2023-06-01"
 author: "Noé Backert"
 description: "Community-driven project aimed at reducing the digital divide for elderly learners through weekly digital literacy training sessions. Includes curriculum design, hands-on teaching, and certification events."
-tags: ["Solidarity", "Digital Literacy", "Community Project", "Elderly Support", "Training Sessions", "Gardanne"]
+tags: ["Solidarity"]
 ---
 
 ### Reduce the digital divide, particularly among the elderly

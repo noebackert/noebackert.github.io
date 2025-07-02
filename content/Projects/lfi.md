@@ -3,7 +3,7 @@ title: "Laser Fault Injection - Internship"
 date: 2024-07-01
 author: "Noé Backert"
 description: "Investigation and experimentation with laser fault injection techniques to analyze hardware vulnerabilities. Includes attack setups, power and pulse width parameters, and resulting BBICS behaviors."
-tags: ["Hardware Security", "Laser Fault Injection", "BBICS", "Embedded Systems", "Fault Injection", "SAS Laboratory"]
+tags: ["Hardware", "Cybersecurity", "Fault Injection"]
 ---
 
 ### Power-off laser fault injection on embedded security primitives

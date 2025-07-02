@@ -3,7 +3,7 @@ title: "ASCON128 Digital System Design Project"
 date: 2023-11-01
 author: "Noé Backert"
 description: "Study and implementation of the Ascon128 lightweight authenticated encryption algorithm, focusing on its efficiency and security for resource-constrained environments and development using SystemVerilog." 
-tags: ["Digital System Design", "ASCON128", "SystemVerilog", "Cryptography", "IoT", "NIST"]
+tags: ["ASCON128", "SystemVerilog", "Cryptography"]
 ---
 
 ### Lightweight Encryption System ASCON128 in SystemVerilog

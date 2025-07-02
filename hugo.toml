@@ -37,3 +37,8 @@ enableEmoji = true
     name = "Projects"
     url = "/Projects/"
     weight = 4
+  [[menu.main]]
+    name = "Tags"
+    url = "/tags/"
+    weight = 5
+  
