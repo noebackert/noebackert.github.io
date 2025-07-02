@@ -21,6 +21,14 @@
 {{- partial "home_info.html" . }}
 {{- end }}
 
+<!-- Welcome Section -->
+{{- if and .IsHome (eq $paginator.PageNumber 1) }}
+<div class="home-welcome">
+    <h1>Welcome to My Blog</h1>
+    <p>Discover my latest CTF writeups, cybersecurity projects, and technical explorations. Use the search below to find specific topics or browse through the categories.</p>
+</div>
+{{- end }}
+
 <!-- Search Bar for Home Page -->
 {{- if and .IsHome $paginator.Pages }}
 <div class="search-container">
@@ -49,6 +57,8 @@
 </script>
 {{- end }}
 
+
+
 {{- if not $paginator.Pages }}
 <div class="post-entry">
     <header class="entry-header">
@@ -61,6 +71,14 @@
 {{- end }}
 
 {{- if $paginator.Pages }}
+<!-- Recent Posts Section -->
+{{- if and .IsHome (eq $paginator.PageNumber 1) }}
+<div class="home-section-header">
+    <h2>Latest Posts</h2>
+    <p>Here are my most recent articles and writeups</p>
+</div>
+{{- end }}
+
 <div id="home-posts-container">
 {{- range $index, $page := $paginator.Pages }}
 
@@ -68,7 +86,9 @@
 
 {{- $user_preferred := or site.Params.disableSpecial1stPost site.Params.homeInfoParams }}
 {{- if (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) (not $user_preferred)) }}
-{{- $class = "first-entry" }}
+{{- $class = "post-entry home-featured-post" }}
+{{- else }}
+{{- $class = "post-entry home-regular-post" }}
 {{- end }}
 
 <article class="{{ $class }} home-post-item" 
@@ -77,6 +97,14 @@
          data-content="{{ lower $page.Content | plainify | truncate 500 }}"
          data-tags="{{ delimit (apply $page.Params.tags "lower" ".") " " }}"
          data-categories="{{ delimit (apply $page.Params.categories "lower" ".") " " }}">
+    
+    {{- if and (eq $index 0) $.IsHome (eq $paginator.PageNumber 1) }}
+    <!-- Featured post layout -->
+    <div class="featured-post-badge">
+        <span>Latest Post</span>
+    </div>
+    {{- end }}
+    
     {{- $isHidden := (site.Params.cover.hidden | default site.Params.cover.hiddenInList) }}
     {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
     <header class="entry-header">
@@ -87,7 +115,13 @@
     </header>
     {{- if (ne (.Param "hideSummary") true) }}
     <div class="entry-content">
-        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+        <p>
+        {{- if .Params.description }}
+            {{ .Params.description | plainify | htmlUnescape }}
+        {{- else }}
+            {{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}
+        {{- end }}
+        </p>
     </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}
@@ -99,6 +133,17 @@
 </article>
 {{- end }}
 </div>
+
+<!-- View All Posts Section -->
+{{- if and .IsHome (gt (len site.RegularPages) (len $paginator.Pages)) }}
+<div class="home-view-all">
+    <h3>Want to see more?</h3>
+    <p>This is just a preview showing {{ len $paginator.Pages }} of {{ len site.RegularPages }} total posts.</p>
+    <div class="view-all-buttons">
+        <a href="/tags/" class="view-all-btn">Explore All Content</a>
+    </div>
+</div>
+{{- end }}
 
 <div id="home-no-posts-results" class="no-results" style="display: none;">
     <p>No posts found matching your search. Try different keywords or tags.</p>
