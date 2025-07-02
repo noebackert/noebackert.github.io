@@ -92,13 +92,29 @@
     {{- partial "cover.html" (dict "cxt" . "IsHome" true "isHidden" $isHidden) }}
     <header class="entry-header">
         <h2>
-            {{- .Title }}
+            {{- if .Params.ctf_platform }}
+                <span class="ctf-platform-title">{{ .Params.ctf_platform }}</span><span class="ctf-platform-separator"> &mdash; </span>{{ .Title }}
+            {{- else }}
+                {{- .Title }}
+            {{- end }}
             {{- if .Draft }}<sup><span class="entry-isdraft">&nbsp;&nbsp;[draft]</span></sup>{{- end }}
         </h2>
     </header>
     {{- if (ne (.Param "hideSummary") true) }}
     <div class="entry-content">
-        <p>{{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}</p>
+        <p>
+        {{- if .Params.description }}
+            {{- $desc := .Params.description | plainify | htmlUnescape }}
+            {{- $maxLength := .Params.descriptionLength | default (site.Params.homeDescriptionLength | default 200) }}
+            {{- if gt (len $desc) $maxLength }}
+                {{ $desc | truncate $maxLength }}...
+            {{- else }}
+                {{ $desc }}
+            {{- end }}
+        {{- else }}
+            {{ .Summary | plainify | htmlUnescape }}{{ if .Truncated }}...{{ end }}
+        {{- end }}
+        </p>
     </div>
     {{- end }}
     {{- if not (.Param "hideMeta") }}

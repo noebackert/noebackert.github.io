@@ -49,12 +49,11 @@
   <footer class="post-footer">
     {{- $tags := .GetTerms "tags" }}
     {{- if $tags }}
-    <nav class="paginav">
-      Tags:
+    <ul class="post-tags">
       {{- range $tags }}
-      <a class="tag" href="{{ .Permalink }}">{{ .LinkTitle }}</a>
+      <li><a href="{{ .Permalink }}">{{ .LinkTitle }}</a></li>
       {{- end }}
-    </nav>
+    </ul>
     {{- end }}
   </footer>
 

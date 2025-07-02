@@ -49,7 +49,7 @@ TranFuzz operates through:
 - Ensuring **misclassification while preserving similarity** (using a high SSIM threshold) for effective, human-imperceptible adversarial examples.
 
 Example of an adversarial attack :
-![advExample](/img/projects/aiFuzzing/adv.png)
+![Example of a basic adversarial attack : adding some carefully selected noise to a panda image can trick an image classification model into classifying the image as a gibbon with high confidence](/img/projects/aiFuzzing/adv.png)
 
 *Figure 1: Example of a basic adversarial attack : adding some carefully selected noise to a panda image can trick an image classification model into classifying the image as a gibbon with high confidence*
 
@@ -67,11 +67,11 @@ The evaluation involved:
 6. Comparing results with classical attacks (FGSM, PGD, C&W, ST) and with Madry’s adversarial training baseline.
 
 
-![trainMethodo](/img/projects/aiFuzzing/trainingMethodology.png)
+![Figure 2: Overall fuzzing methodology diagram](/img/projects/aiFuzzing/trainingMethodology.png)
 *Figure 2: Overall fuzzing methodology diagram*
 
 
-![advRetraining](/img/projects/aiFuzzing/advRetraining.png)
+![Figure 3: Adversarial retraining with augmented dataset](/img/projects/aiFuzzing/advRetraining.png)
 *Figure 3: Adversarial retraining with augmented dataset*
 
 
@@ -80,10 +80,9 @@ The evaluation involved:
 ## Results
 ### Transferability results
 TranFuzz demonstrated strong transferability of adversarial examples across different models and datasets, with notable improvements over traditional methods.
-![tranResults](/img/projects/aiFuzzing/transfResults.png)
+![Figure 4: Transfer accuracy of the target model DenseNet-121 on the source model using different target datasets](/img/projects/aiFuzzing/transfResults.png)
 
-*Figure 4: Transfer accuracy of the target model DenseNet-121 on the source model using
- different target datasets*
+*Figure 4: Transfer accuracy of the target model DenseNet-121 on the source model using different target datasets*
 
 - **TranFuzz demonstrated strong black-box attack capabilities**, reducing DenseNet accuracy from 94% to 42% in some cases.
 - **Transferability** of adversarial examples increased with dataset complexity, with TranFuzz outperforming Madry retraining on harder datasets (Amazon, Product) by up to +4% in transfer accuracy.
@@ -91,10 +90,10 @@ TranFuzz demonstrated strong transferability of adversarial examples across diff
 - **Adversarial retraining with TranFuzz samples** improved model resilience to certain attacks, but complete defense across all attack types was not achieved.
 - Limitations included dataset size, old model architectures, and unprovided hyperparameter details, impacting reproducibility and generalization.
 
-![densenetResults](/img/projects/aiFuzzing/densenetResults.png)
+![Figure 5: DensetNet-121 result charts on different datasets](/img/projects/aiFuzzing/densenetResults.png)
 *Figure 5: DensetNet-121 result charts on different datasets*
 
-![webcamDatasetResults](/img/projects/aiFuzzing/webcamDatasetResults.png)
+![Figure 6: Office31/Webcam result charts for different model architectures](/img/projects/aiFuzzing/webcamDatasetResults.png)
 *Figure 6: Office31/Webcam result charts for different model architectures*
 
 ---
