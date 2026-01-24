@@ -79,7 +79,8 @@
 </div>
 {{- end }}
 
-<div id="home-posts-container">
+<div id="home-posts-container" class="timeline-stream">
+{{- $.Scratch.Set "prevYear" "" -}}
 {{- range $index, $page := $paginator.Pages }}
 
 {{- $class := "post-entry" }}
@@ -89,6 +90,14 @@
 {{- $class = "post-entry home-featured-post" }}
 {{- else }}
 {{- $class = "post-entry home-regular-post" }}
+{{- end }}
+
+{{- $year := $page.Date.Format "2006" -}}
+{{- if ne $year ($.Scratch.Get "prevYear") }}
+<div class="timeline-marker" data-year="{{ $year }}">
+    <span class="timeline-year-label">{{ $year }}</span>
+</div>
+{{- $.Scratch.Set "prevYear" $year -}}
 {{- end }}
 
 <article class="{{ $class }} home-post-item" 

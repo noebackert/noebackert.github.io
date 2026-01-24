@@ -456,6 +456,61 @@ body:not(.dark) .suggestion-item.suggestion-active {
   margin-top: 0.75rem;
 }
 
+/* Timeline styling on home list */
+.timeline-stream {
+  position: relative;
+  padding-left: 80px;
+}
+
+.timeline-stream::before {
+  content: "";
+  position: absolute;
+  left: 32px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border);
+  border-radius: 1px;
+}
+
+.timeline-marker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--secondary);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transform: translateX(-24px);
+}
+
+.timeline-year-label {
+  font-size: 1rem;
+}
+
+.timeline-dot {
+  display: none;
+}
+
+body.dark .timeline-stream::before {
+  background: #444;
+}
+
+@media (max-width: 768px) {
+  .timeline-stream {
+    padding-left: 0;
+  }
+  .timeline-stream::before {
+    display: none;
+  }
+  .timeline-marker {
+    margin: 1.25rem 0 0.5rem;
+    transform: none;
+    padding-left: 0;
+  }
+}
+
 /* Card styling for post/project/CTF lists */
 .post-entry {
   position: relative;
