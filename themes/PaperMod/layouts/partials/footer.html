@@ -100,12 +100,15 @@
 
         const copybutton = document.createElement('button');
         copybutton.classList.add('copy-code');
-        copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+        copybutton.setAttribute('aria-live', 'polite');
+        copybutton.innerHTML = '';
 
         function copyingDone() {
-            copybutton.innerHTML = '{{- i18n "code_copied" | default "copied!" }}';
+            copybutton.classList.add('copied');
+            copybutton.innerHTML = '';
             setTimeout(() => {
-                copybutton.innerHTML = '{{- i18n "code_copy" | default "copy" }}';
+                copybutton.classList.remove('copied');
+                copybutton.innerHTML = '';
             }, 2000);
         }
 

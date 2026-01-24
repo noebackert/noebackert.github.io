@@ -31,12 +31,12 @@ In this challenge, we analyze a recovered OpenWrt router firmware image to extra
 
 ## Preliminary inspection
 We first want to know the file we have: 
-```
+```shell
 -[~/HTB]$ file chal_router_dump.bin
 chal_router_dump.bin: data
 ```
 
-```
+```shell
 -[~/HTB]$ binwalk chal_router_dump.bin
 
 DECIMAL       HEXADECIMAL     DESCRIPTION
@@ -69,7 +69,7 @@ In practice, OpenWrt combines both via overlayfs: the immutable SquashFS provide
 ### Carving SquashFS by signature ("hsqs")
 To locate the SquashFS superblock inside the raw dump, we search for its magic string:
 
-```
+```shell
 grep -oba "hsqs" chal_router_dump.bin
 ```
 
@@ -81,7 +81,7 @@ SquashFS uses the ASCII magic `hsqs` at the start of its superblock (little-endi
 
 We then carve the filesystem starting at that offset to the end of the file:
 
-```
+```shell
 dd if=chal_router_dump.bin of=squashfs.img bs=1 skip=4375240
 ```
 
@@ -97,7 +97,7 @@ Tip: Using `bs=1` avoids off-by-block errors (default dd blocks are 512 bytes). 
 ### Step 1: Firmware Analysis & Extraction
 
 Initial analysis reveals the firmware image contains multiple filesystems:
-```bash
+```shell
 -[~/HTB]$ binwalk squashfs.img
 DECIMAL       HEXADECIMAL     DESCRIPTION
 0             0x0             Squashfs filesystem...
@@ -105,7 +105,7 @@ DECIMAL       HEXADECIMAL     DESCRIPTION
 ```
 
 Extract the firmware:
-```bash
+```shell
 -[~/HTB]$ binwalk -e squashfs.img
 ```
 
@@ -124,7 +124,7 @@ This allows configuration changes to persist across reboots without modifying th
 ### Step 3: Extract JFFS2 Overlay
 
 Use `jefferson` to unpack the JFFS2 partition:
-```bash
+```shell
 -[~/HTB]$ jefferson 393D38.jffs2 -d jffs2-root
 ```
 
@@ -135,7 +135,7 @@ The JFFS2 partition contains:
 ### Step 4: Extract Sysupgrade Archive
 
 Within the overlay, find `sysupgrade.tgz` - the backup containing all configuration:
-```bash
+```shell
 -[~/HTB]$ cd _squashfs.img.extracted/jffs2-root/upper
 -[~/HTB/_squashfs.img.extracted/jffs2-root/upper]$  tar -xzf sysupgrade.tgz
 ```
@@ -145,14 +145,14 @@ This exposes the `etc/` directory with all configuration files.
 ### Answering the Questions
 
 #### 1. OpenWrt Version
-```bash
+```shell
 -[~/HTB/_squashfs.img.extracted/squashfs-root]$ cat etc/os-release
 VERSION="23.05.0"
 ```
 **Answer:** `23.05.0`
 
 #### 2. Linux Kernel Version
-```bash
+```shell
 -[~/HTB/_squashfs.img.extracted/squashfs-root]$ ls ./lib/modules
 5.15.134
 ```
@@ -160,7 +160,7 @@ VERSION="23.05.0"
 
 #### 3. Root Password Hash
 This is the key insight: the SquashFS shadow file is empty (`root:::...`), but the overlay contains the actual hash:
-```bash
+```shell
 -[~/HTB]$ cat _squashfs.img.extracted/jffs2-root/upper/etc/shadow
 root:$1$YfuRJudo$cXCiIJXn9fWLIt8WY2Okp1:19804:0:99999:7:::
 ```
@@ -170,7 +170,7 @@ root:$1$YfuRJudo$cXCiIJXn9fWLIt8WY2Okp1:19804:0:99999:7:::
 
 #### 4 & 5. PPPoE Credentials
 Located in UCI (Unified Configuration Interface) config:
-```bash
+```shell
 $ cat etc/config/network | grep -A 5 pppoe
 config interface 'wan'
     option proto 'pppoe'
@@ -183,7 +183,7 @@ config interface 'wan'
 
 #### 6 & 7. WiFi SSID and Password
 Located in wireless configuration:
-```bash
+```shell
 $ cat etc/config/wireless | grep -E "ssid|key"
 option ssid 'VLT-AP01'
 option key 'french-halves-vehicular-favorable'
@@ -198,7 +198,7 @@ option wpa_disable_eapol_key_retries '1'
 
 #### 8. WAN Redirect Ports
 The firewall configuration contains DNAT rules mapping WAN ports to internal LAN services:
-```bash
+```shell
 $ cat etc/config/firewall | grep -A 5 "redirect"
 
 config redirect
