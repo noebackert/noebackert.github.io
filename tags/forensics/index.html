@@ -14,9 +14,16 @@
 <h2 id="installation--tools">installation / tools</h2>
 <p>we are given a .elf file ~2go, it says it&amp;rsquo;s a memory capture. we&amp;rsquo;ll then try to analyse it using volatility3.</p>
 <p><code>python3 vol.py -f mem.elf banners</code></p>
-<p>it returns something like :
-<code>0x10399cd0      linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (debian 12.2.0-14+deb12u1) 12.2.0, gnu ld (gnu binutils for debian) 2.40) #1 smp preempt_dynamic debian 6.1.135-1 (2025-04-25)</code></p>
-<p>to be able to analyse this kernel (6.1.0-34-amd64), we have to find the exact matching banner symbol table.
+<p>it returns something like :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">0x10399cd0      linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (debian 12.2.0-14+deb12u1) 12.2.0, gnu ld (gnu binutils for debian) 2.40) #1 smp preempt_dynamic debian 6.1.135-1 (2025-04-25)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>to be able to analyse this kernel <code>6.1.0-34-amd64</code>, we have to find the exact matching banner symbol table.
 a lot of them are available on :
 <a href="https://github.com/abyss-w4tcher/volatility3-symbols/tree/master">https://github.com/abyss-w4tcher/volatility3-symbols/tree/master</a></p>' data-tags="forensics ram volatility3"><header class=entry-header><h2><span class=ctf-platform-title>HTB</span><span class=ctf-platform-separator> &mdash; </span>Driver's Shadow</h2></header><div class=entry-content><p>A critical Linux server began behaving erratically under suspected Volnaya interference, so a full memory snapshot was captured for analysis. Stealthy components embedded in the dump are altering …...</p></div><footer class=entry-footer><span title='2025-05-25 15:00:00 +0200 +0200'>May 25, 2025</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Noé Backert</footer><a class=entry-link aria-label="post link to Driver's Shadow" href=https://www.noe.backert.fr/ctf/driversshadow/></a></article></div><div id=no-posts-results class=no-results style=display:none><p>No posts found matching your search.</p></div><script>document.addEventListener("DOMContentLoaded",function(){const e=document.getElementById("post-search");if(!e)return;const t=document.getElementById("posts-container"),n=document.querySelectorAll(".post-item"),i=document.getElementById("post-count"),s=document.getElementById("no-posts-results"),a=n.length;function o(){const a=e.value.toLowerCase().trim();let o=0;n.forEach(function(e){const t=e.getAttribute("data-title")||"",n=e.getAttribute("data-summary")||"",s=e.getAttribute("data-tags")||"",i=t+" "+n+" "+s;i.includes(a)?(e.style.display="block",o++):e.style.display="none"}),i.textContent=o,o===0&&a!==""?(s.style.display="block",t.style.display="none"):(s.style.display="none",t.style.display="block")}e.addEventListener("input",o),e.addEventListener("keydown",function(t){t.key==="Escape"&&(e.value="",o())})})</script></main><footer class=footer><span>&copy; 2026 <a href=https://www.noe.backert.fr/>Noé Backert | Blog</a></span> ·
 <span>Powered by

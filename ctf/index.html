@@ -16,9 +16,16 @@
 <h2 id="installation--tools">installation / tools</h2>
 <p>we are given a .elf file ~2go, it says it&amp;rsquo;s a memory capture. we&amp;rsquo;ll then try to analyse it using volatility3.</p>
 <p><code>python3 vol.py -f mem.elf banners</code></p>
-<p>it returns something like :
-<code>0x10399cd0      linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (debian 12.2.0-14+deb12u1) 12.2.0, gnu ld (gnu binutils for debian) 2.40) #1 smp preempt_dynamic debian 6.1.135-1 (2025-04-25)</code></p>
-<p>to be able to analyse this kernel (6.1.0-34-amd64), we have to find the exact matching banner symbol table.
+<p>it returns something like :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-txt" data-lang="txt"><span class="line"><span class="cl">0x10399cd0      linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (debian 12.2.0-14+deb12u1) 12.2.0, gnu ld (gnu binutils for debian) 2.40) #1 smp preempt_dynamic debian 6.1.135-1 (2025-04-25)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>to be able to analyse this kernel <code>6.1.0-34-amd64</code>, we have to find the exact matching banner symbol table.
 a lot of them are available on :
 <a href="https://github.com/abyss-w4tcher/volatility3-symbols/tree/master">https://github.com/abyss-w4tcher/volatility3-symbols/tree/master</a></p>' data-platform=htb data-tags="forensics ram volatility3"><header class=entry-header><h2><span class=ctf-platform-title>HTB</span><span class=ctf-platform-separator> &mdash; </span>Driver's Shadow</h2></header><div class=entry-content><p>A critical Linux server began behaving erratically under suspected Volnaya interference, so a full memory snapshot was captured for analysis. Stealthy components embedded in the dump are altering …...</p></div><footer class=entry-footer><span title='2025-05-25 15:00:00 +0200 +0200'>May 25, 2025</span>&nbsp;·&nbsp;7 min&nbsp;·&nbsp;Noé Backert</footer><div class=card-tags><a class=card-tag href=/tags/forensics>Forensics</a>
 <a class=card-tag href=/tags/ram>RAM</a>
