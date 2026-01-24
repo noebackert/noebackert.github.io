@@ -4,6 +4,10 @@
   --custom-orange: darkorange;
   --custom-orange-rgb: 255, 165, 0;
   --custom-orange-hover: rgb(255, 179, 0);
+
+  /* Link palette (light mode) */
+  --link-light: #ce5600;
+  --link-light-hover: #d25c00;
   
   /* Yellow/Gold colors for dark mode */
   --custom-yellow: rgb(215, 200, 42);
@@ -74,7 +78,7 @@ body:not(.dark) a:visited,
 body:not(.dark) a:hover,
 body:not(.dark) a:focus,
 body:not(.dark) a:active {
-  color: var(--custom-orange) !important;
+  color: var(--link-light) !important;
   text-decoration: none !important;
 }
 
@@ -82,7 +86,7 @@ body:not(.dark) a:active {
 body:not(.dark) a:hover,
 body:not(.dark) a:focus,
 body:not(.dark) a:active {
-  color: var(--custom-orange-hover) !important;
+  color: var(--link-light-hover) !important;
 }
 
 body.dark code {
@@ -517,6 +521,62 @@ body:not(.dark) .featured-post-badge {
   font-weight: 600;
   transition: all 0.3s ease;
   border: 2px solid var(--cta-border);
+}
+
+/* Prevent global link colors from overriding CTA text */
+.home-view-all .view-all-btn,
+.home-view-all .view-all-btn:link,
+.home-view-all .view-all-btn:visited,
+.home-view-all .view-all-btn:hover,
+.home-view-all .view-all-btn:focus,
+.home-view-all .view-all-btn:active {
+  color: var(--cta-text) !important;
+}
+
+/* Resume download button */
+.resume-download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: var(--cta-bg);
+  color: var(--cta-text) !important;
+  border-radius: 10px;
+  font-weight: 700;
+  text-decoration: none !important;
+  border: 2px solid var(--cta-border);
+  box-shadow: 0 6px 18px var(--cta-shadow);
+  transition: all 0.3s ease;
+}
+
+/* Keep resume CTA text visible in both themes */
+body:not(.dark) .resume-download-btn,
+body:not(.dark) .resume-download-btn:link,
+body:not(.dark) .resume-download-btn:visited,
+body:not(.dark) .resume-download-btn:hover,
+body:not(.dark) .resume-download-btn:focus,
+body:not(.dark) .resume-download-btn:active {
+  color: #ffffff !important;
+}
+
+body.dark .resume-download-btn,
+body.dark .resume-download-btn:link,
+body.dark .resume-download-btn:visited,
+body.dark .resume-download-btn:hover,
+body.dark .resume-download-btn:focus,
+body.dark .resume-download-btn:active {
+  color: #111111 !important;
+}
+
+.resume-download-btn:hover {
+  background: var(--cta-hover-bg);
+  color: var(--cta-hover-text) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px var(--cta-shadow);
+}
+
+.resume-download-btn:active {
+  transform: translateY(0);
 }
 
 .view-all-btn:hover {
