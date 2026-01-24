@@ -522,6 +522,98 @@ body.dark .timeline-stream::before {
   overflow: hidden;
 }
 
+.card-tags {
+  position: absolute;
+  right: 12px;
+  bottom: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 65%;
+  max-height: 42px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  justify-content: flex-end;
+}
+
+.card-tags::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.card-tags::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card-tags::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 2px;
+}
+
+.card-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none !important;
+  color: var(--cta-text) !important;
+  background: var(--cta-bg);
+  border: 1px solid var(--cta-border);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+
+.card-tag:hover {
+  background: var(--cta-hover-bg);
+  color: var(--cta-hover-text) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px var(--cta-shadow);
+}
+
+body:not(.dark) .card-tag,
+body:not(.dark) .card-tag:link,
+body:not(.dark) .card-tag:visited {
+  color: #ffffff !important;
+  background: var(--cta-bg);
+}
+
+body:not(.dark) .card-tag:hover {
+  color: var(--cta-hover-text) !important;
+}
+
+body.dark .card-tag,
+body.dark .card-tag:link,
+body.dark .card-tag:visited {
+  color: #1a1a1a !important;
+  background: var(--cta-bg);
+}
+
+body.dark .card-tag:hover {
+  color: var(--cta-hover-text) !important;
+}
+
+.post-entry { padding-bottom: 58px; }
+
+@media (max-width: 768px) {
+  .card-tags {
+    position: static;
+    justify-content: flex-start;
+    margin-top: 10px;
+    max-width: 100%;
+    max-height: none;
+    overflow-y: visible;
+  }
+  .post-entry { padding-bottom: 16px; }
+  .card-tag {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+  }
+}
+
 .post-entry::after {
   content: "";
   position: absolute;
