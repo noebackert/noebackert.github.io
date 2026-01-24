@@ -7,21 +7,25 @@ tags: ["CV", "Resume", "Portfolio"]
 
 **Computer Science Student | Forensics enthusiast**
 
-[![GitHub](https://img.shields.io/badge/GitHub-noebackert-black?logo=github)](https://github.com/noebackert)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-noebackert-blue?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PCFET0NUWVBFIHN2ZyAgUFVCTElDICctLy9XM0MvL0RURCBTVkcgMS4xLy9FTicgICdodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQnPjxzdmcgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgNTYuNjkzIDU2LjY5MyIgaGVpZ2h0PSI1Ni42OTNweCIgaWQ9IkxheWVyXzEiIHZlcnNpb249IjEuMSIgdmlld0JveD0iMCAwIDU2LjY5MyA1Ni42OTMiIHdpZHRoPSI1Ni42OTNweCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+PGc+PHBhdGggZD0iTTMwLjA3MSwyNy4xMDF2LTAuMDc3Yy0wLjAxNiwwLjAyNi0wLjAzMywwLjA1Mi0wLjA1LDAuMDc3SDMwLjA3MXoiLz48cGF0aCBkPSJNNDkuMjY1LDQuNjY3SDcuMTQ1Yy0yLjAxNiwwLTMuNjUxLDEuNTk2LTMuNjUxLDMuNTYzdjQyLjYxM2MwLDEuOTY2LDEuNjM1LDMuNTYyLDMuNjUxLDMuNTYyaDQyLjEyICAgYzIuMDE5LDAsMy42NTQtMS41OTcsMy42NTQtMy41NjJWOC4yM0M1Mi45MTksNi4yNjIsNTEuMjgzLDQuNjY3LDQ5LjI2NSw0LjY2N3ogTTE4LjQ3NSw0Ni4zMDRoLTcuNDY1VjIzLjg0NWg3LjQ2NVY0Ni4zMDR6ICAgIE0xNC43NDMsMjAuNzc3aC0wLjA1Yy0yLjUwNCwwLTQuMTI0LTEuNzI1LTQuMTI0LTMuODhjMC0yLjIwMywxLjY3LTMuODgsNC4yMjMtMy44OGMyLjU1NCwwLDQuMTI1LDEuNjc3LDQuMTc1LDMuODggICBDMTguOTY3LDE5LjA1MiwxNy4zNDUsMjAuNzc3LDE0Ljc0MywyMC43Nzd6IE00NS4zOTQsNDYuMzA0aC03LjQ2NVYzNC4yODZjMC0zLjAxOC0xLjA4LTUuMDc4LTMuNzgxLTUuMDc4ICAgYy0yLjA2MiwwLTMuMjksMS4zODktMy44MzEsMi43MzFjLTAuMTk3LDAuNDc5LTAuMjQ1LDEuMTQ5LTAuMjQ1LDEuODIxdjEyLjU0M2gtNy40NjVjMCwwLDAuMDk4LTIwLjM1NCwwLTIyLjQ1OWg3LjQ2NXYzLjE3OSAgIGMwLjk5Mi0xLjUzLDIuNzY2LTMuNzA5LDYuNzI5LTMuNzA5YzQuOTExLDAsOC41OTQsMy4yMTEsOC41OTQsMTAuMTFWNDYuMzA0eiIvPjwvZz48L3N2Zz4=)](https://www.linkedin.com/in/noebackert/)
-[![Download CV](https://img.shields.io/badge/Resume-noebackert-black?logo=data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48dGl0bGUvPjxnIGRhdGEtbmFtZT0iMSIgaWQ9Il8xIj48cGF0aCBkPSJNMjU1LjEzLDM4NS41NGExNSwxNSwwLDAsMS0xMS4xNC01TDEwMy42NywyMjQuOTNhMTUsMTUsMCwwLDEsMTEuMTQtMjVIMTcxVjYzYTE1LDE1LDAsMCwxLDE1LTE1SDMyNC4zYTE1LDE1LDAsMCwxLDE1LDE1VjE5OS44OWg1Ni4xNmExNSwxNSwwLDAsMSwxMS4xNCwyNUwyNjYuMjcsMzgwLjU4QTE1LDE1LDAsMCwxLDI1NS4xMywzODUuNTRaTTE0OC41MywyMjkuODlsMTA2LjYsMTE4LjI1TDM2MS43NCwyMjkuODlIMzI0LjNhMTUsMTUsMCwwLDEtMTUtMTVWNzhIMjAxVjIxNC44OWExNSwxNSwwLDAsMS0xNSwxNVoiLz48cGF0aCBkPSJNMzkwLjg0LDQ1MEgxMTkuNDNhNjUuMzcsNjUuMzcsMCwwLDEtNjUuMy02NS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0EzNS4zNCwzNS4zNCwwLDAsMCwxMTkuNDMsNDIwSDM5MC44NGEzNS4zMywzNS4zMywwLDAsMCwzNS4yOS0zNS4yOVYzNDYuNTRhMTUsMTUsMCwwLDEsMzAsMHYzOC4xN0E2NS4zNyw2NS4zNywwLDAsMSwzOTAuODQsNDUwWiIvPjwvZz48L3N2Zz4=)](/files/CV.pdf)
+<div style="display:flex; flex-wrap:wrap; gap:12px; align-items:center; margin:12px 0 22px;">
+  <a href="https://github.com/noebackert">
+    <img src="https://img.shields.io/badge/GitHub-noebackert-black?logo=github" alt="GitHub" />
+  </a>
+  <a href="https://www.linkedin.com/in/noebackert/">
+    <img src="https://img.shields.io/badge/LinkedIn-noebackert-0A66C2?logo=linkedin&logoColor=white" alt="LinkedIn" />
+  </a>
+  <a class="resume-download-btn" href="/files/CV.pdf">
+    <span>Download Resume (PDF)</span>
+  </a>
+</div>
 
 ---
 
 ## 🧑‍💻 About Me
 
-Hello! I’m **Noé Backert**, a computer science student at [École des Mines de Saint-Étienne](https://www.mines-stetienne.fr/) with a passion for **cybersecurity** and **hardware security**.
+Hello! I’m **Noé Backert**, a computer science student at [École des Mines de Saint-Étienne](https://www.mines-stetienne.fr/) with a passion for **cybersecurity** and **forensics**.
 
-I am currently interning at Sopra Steria, working on the SOC Investigation team.
-
-- **Age:** 23
 - **Location:** Toulouse, FRANCE
-- **Email:** [noe.backert [at] gmail.com](mailto:noe.backert@gmail.com)
 - **Hobbies:** [Cycleball](https://en.wikipedia.org/wiki/Cycle_ball), [Kendama](https://en.wikipedia.org/wiki/Kendama), Workout
 
 ---
@@ -45,7 +49,6 @@ I am currently interning at Sopra Steria, working on the SOC Investigation team.
 - :fr: **French:** Native
 - :us: **English:** Fluent
 - :de: **German:** Intermediate
-- :ru: **Russian** Beginner
 
 ### 🖥️ Programming
 
@@ -72,7 +75,8 @@ I am currently interning at Sopra Steria, working on the SOC Investigation team.
 ### Network & Security
 
 - Penetration Testing (Nmap, Metasploit, Active Directory, Brupsuite, Hydra)
-- SIEM (Splunk, SentinelOne, Microsoft Defender for Endpoint)
+- SIEM (Splunk, QRadar, ELK)
+- EDR (SentinelOne, Microsoft Defender for Endpoint)
 - VPN & Network Protocols
 - Cryptography (AES, RSA)
 - Firewalls
@@ -90,25 +94,25 @@ I am currently interning at Sopra Steria, working on the SOC Investigation team.
 
 ### 🛡️ Cybersecurity
 
-- **[ASCON128 Implementation](/projects/ascon128)**: SystemVerilog implementation of lightweight crypto for IoT.
-- **[Laser Fault Injection Research](/projects/lfi)**: Hardware security research.
-- **[Fuzzing Framework](/projects/aifuzzing)**: Fuzzing framework using AI to generate inputs for testing.
+- [ASCON128 Implementation](/projects/ascon128): SystemVerilog implementation of lightweight crypto for IoT.
+- [Laser Fault Injection Research](/projects/lfi): Hardware security research.
+- [Fuzzing Framework](/projects/aifuzzing): Fuzzing framework using AI to generate inputs for testing.
 ### 💻 Software Development
 
-- **[Multiplayer Typing Game](/projects/typingGame)**: Multithreaded C game.
-- **[Predictive Typing in C](/projects/predictiveTyping)**: Predictive typing using hashes and wordlists.
+- [Multiplayer Typing Game](/projects/typingGame): Multithreaded C game.
+- [Predictive Typing in C](/projects/predictiveTyping): Predictive typing using hashes and wordlists.
 
 ### 📱 Mobile Development
 
-- **[Comif App](/projects/comif)**: Flutter app for a student association bar.
+- [Comif App](/projects/comif): Flutter app for a student association bar.
 
 ### 🤖 Machine Learning
 
-- **[Image Prediction Model](/projects/imagePrediction)**: ML model to predict objects in images.
+- [Image Prediction Model](/projects/imagePrediction): ML model to predict objects in images.
 
 ### 🧑‍🤝‍🧑 Community
 
-- **[ISA Project](/projects/ISA)**: Reducing the digital divide among the elderly.
+- [ISA Project](/projects/ISA): Reducing the digital divide among the elderly.
 
 ---
 
