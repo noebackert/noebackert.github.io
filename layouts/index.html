@@ -148,6 +148,13 @@
         {{- partial "post_meta.html" . -}}
     </footer>
     {{- end }}
+    {{- with .Params.tags }}
+    <div class="card-tags">
+        {{- range . }}
+        <a class="card-tag" href="{{ "/tags/" | relURL }}{{ . | urlize }}">{{ . }}</a>
+        {{- end }}
+    </div>
+    {{- end }}
     <a class="entry-link" aria-label="post link to {{ .Title | plainify }}" href="{{ .Permalink }}"></a>
 </article>
 {{- end }}
