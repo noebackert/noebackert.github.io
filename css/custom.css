@@ -1219,87 +1219,71 @@ body:not(.dark) article img + em {
   position: absolute;
   top: 8px;
   left: 12px;
-  background: var(--theme);
-  color: var(--entry);
-  padding: 4px 8px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 4px;
-  z-index: 15;
-  opacity: 1;
+  padding: 2px 6px !important;
+  font-size: 9px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--secondary) !important;
+  border-radius: 4px !important;
+  opacity: 0.6 !important;
+  transition: all 0.2s ease !important;
+  max-width: 60%;
+  display: inline-flex;
+  align-items: center;
   pointer-events: none;
-  font-family: var(--font-mono, 'Courier New', monospace);
 }
 
-/* Dark mode language label */
-body.dark .code-lang-label {
-  background: var(--custom-yellow);
-  color: #1a1a1a;
+.highlight:hover .code-lang-label {
+  opacity: 0.6 !important;
+  background: transparent !important;
+  border-color: transparent !important;
 }
 
-/* Light mode language label */
-body:not(.dark) .code-lang-label {
-  background: var(--custom-orange);
-  color: white;
-}
 
 /* Code block content adjustments */
 .highlight pre {
-  padding-top: 2.5rem !important; /* Make room for language label */
+  padding-top: 1.8rem !important; /* Make room for language label */
   margin: 0;
   overflow-x: auto;
 }
 
-/* Language label for code blocks */
-.code-lang-label {
-  position: absolute;
-  top: 8px;
-  left: 12px;
-  background: var(--theme);
-  color: var(--entry);
-  padding: 4px 8px;
-  font-size: 10px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 4px;
-  z-index: 5;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-/* Show language label on hover */
-.highlight:hover .code-lang-label {
-  opacity: 0.9;
-}
-
-/* Enhanced Code Copy Button Styling */
+/* Modern ChatGPT-style Code Copy Button */
 .copy-code {
   position: absolute !important;
   top: 8px !important;
   right: 8px !important;
-  background: rgba(255, 255, 255, 0.9) !important;
-  border: 1px solid var(--border) !important;
-  color: var(--content) !important;
-  padding: 6px 10px !important;
-  font-size: 12px !important;
+  background: transparent !important;
+  border: 1px solid transparent !important;
+  color: var(--secondary) !important;
+  padding: 4px !important;
+  font-size: 0 !important;
   font-weight: 600 !important;
   border-radius: 6px !important;
   cursor: pointer !important;
-  transition: all 0.3s ease !important;
-  backdrop-filter: blur(10px) !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
   display: flex !important;
   align-items: center !important;
-  gap: 4px !important;
-  z-index: 10 !important;
-  min-width: 60px !important;
   justify-content: center !important;
-  opacity: 0 !important;
-  transform: translateY(-4px) !important;
+  gap: 0 !important;
+  z-index: 10 !important;
+  width: 28px !important;
+  height: 28px !important;
+  min-width: unset !important;
+  opacity: 0.6 !important;
+  transform: translateY(0) !important;
+}
+
+/* Base visibility tweaks by theme */
+body:not(.dark) .copy-code {
+  background: rgba(255, 255, 255, 0.85) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  color: #1f1f1f !important;
+}
+
+body.dark .copy-code {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: var(--custom-yellow) !important;
 }
 
 /* Ensure copy button works for all code blocks */
@@ -1310,49 +1294,64 @@ body:not(.dark) .code-lang-label {
 /* Show copy button on hover */
 .highlight:hover .copy-code {
   opacity: 1 !important;
-  transform: translateY(0) !important;
+  background: rgba(255, 140, 0, 0.1) !important;
+  border-color: var(--border) !important;
+}
+
+body.dark .highlight:hover .copy-code {
+  background: rgba(215, 200, 42, 0.1) !important;
 }
 
 .copy-code::before {
-  content: "📋";
-  font-size: 14px;
-  margin-right: 2px;
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.7;
+  margin: 0;
+}
+
+.copy-code.copied {
+  background: rgba(46, 204, 113, 0.14) !important;
+  border-color: rgba(46, 204, 113, 0.5) !important;
+  color: #1f1f1f !important;
+}
+
+body.dark .copy-code.copied {
+  background: rgba(46, 204, 113, 0.18) !important;
+  border-color: rgba(46, 204, 113, 0.6) !important;
+  color: #e8ffe8 !important;
+}
+
+.copy-code.copied::before {
+  opacity: 1;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>');
+}
+
+.copy-code:hover::before {
+  opacity: 1;
 }
 
 .copy-code:hover {
-  background: var(--theme) !important;
-  color: var(--entry) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  background: rgba(255, 140, 0, 0.15) !important;
+  color: var(--theme) !important;
+  transform: scale(1.05) !important;
+  border-color: var(--border) !important;
 }
+
+/* Hover handled above */
 
 .copy-code:active {
-  transform: translateY(0) !important;
+  transform: scale(0.95) !important;
+  background: rgba(255, 140, 0, 0.2) !important;
 }
 
-/* Dark mode copy button */
-body.dark .copy-code {
-  background: rgba(42, 42, 42, 0.95) !important;
-  border-color: #444 !important;
-  color: #e0e0e0 !important;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
-}
-
-body.dark .copy-code:hover {
-  background: var(--custom-yellow) !important;
-  color: #1a1a1a !important;
-}
-
-/* Light mode copy button */
-body:not(.dark) .copy-code {
-  background: rgba(255, 255, 255, 0.95) !important;
-  border-color: #ddd !important;
-  color: #333 !important;
-}
-
-body:not(.dark) .copy-code:hover {
-  background: var(--custom-orange) !important;
-  color: white !important;
+body.dark .copy-code:active {
+  background: rgba(215, 200, 42, 0.2) !important;
 }
 
 /* Dark mode code styling */
@@ -1370,32 +1369,25 @@ body:not(.dark) .highlight {
 /* Responsive code blocks */
 @media (max-width: 768px) {
   .copy-code {
+    width: 24px !important;
+    height: 24px !important;
+    padding: 3px !important;
     top: 6px !important;
     right: 6px !important;
-    padding: 4px 8px !important;
-    font-size: 11px !important;
-    min-width: 50px !important;
   }
   
   .copy-code::before {
-    font-size: 12px;
+    width: 14px !important;
+    height: 14px !important;
   }
   
   .code-lang-label {
+    font-size: 8px !important;
+    padding: 1px 4px !important;
+    opacity: 0.45 !important;
     top: 6px;
-    left: 8px;
-    padding: 3px 6px;
-    font-size: 9px;
-  }
-  
-  /* Always show on mobile for better UX */
-  .copy-code {
-    opacity: 0.7 !important;
-    transform: translateY(0) !important;
-  }
-  
-  .code-lang-label {
-    opacity: 0.7;
+    left: 10px;
+    max-width: 65%;
   }
 }
 
@@ -1464,3 +1456,18 @@ body.dark img.no-transparent-bg {
     background-position: 0 0, 7.5px 7.5px;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
