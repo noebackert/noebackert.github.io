@@ -456,6 +456,51 @@ body:not(.dark) .suggestion-item.suggestion-active {
   margin-top: 0.75rem;
 }
 
+/* Card styling for post/project/CTF lists */
+.post-entry {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--entry);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  overflow: hidden;
+}
+
+.post-entry::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  border: 1px solid transparent;
+  pointer-events: none;
+  transition: border-color 0.2s ease;
+}
+
+.post-entry:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.12);
+  border-color: var(--theme);
+}
+
+.post-entry:hover::after {
+  border-color: rgba(var(--custom-orange-rgb), 0.28);
+}
+
+body.dark .post-entry {
+  border-color: #444;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+}
+
+body.dark .post-entry:hover {
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
+  border-color: var(--custom-yellow);
+}
+
+body.dark .post-entry:hover::after {
+  border-color: rgba(var(--custom-yellow-rgb), 0.32);
+}
+
 /* Dark mode specific styles */
 body.dark .home-welcome {
   background: #2a2a2a;
@@ -566,6 +611,17 @@ body.dark .resume-download-btn:hover,
 body.dark .resume-download-btn:focus,
 body.dark .resume-download-btn:active {
   color: #111111 !important;
+}
+
+/* Hover colors tuned per theme for visibility */
+body:not(.dark) .resume-download-btn:hover,
+body:not(.dark) .resume-download-btn:focus {
+  color: var(--cta-hover-text) !important;
+}
+
+body.dark .resume-download-btn:hover,
+body.dark .resume-download-btn:focus {
+  color: var(--cta-hover-text) !important;
 }
 
 .resume-download-btn:hover {
