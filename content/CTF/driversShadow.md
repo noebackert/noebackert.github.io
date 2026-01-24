@@ -17,16 +17,23 @@ We are given a .elf file ~2Go, it says it's a memory capture. We'll then try to 
 `python3 vol.py -f mem.elf banners`
 
 It returns something like :
-`0x10399cd0      Linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.135-1 (2025-04-25)`
 
-To be able to analyse this kernel (6.1.0-34-amd64), we have to find the exact matching banner symbol table. 
+```txt
+0x10399cd0      Linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.135-1 (2025-04-25)
+```
+
+To be able to analyse this kernel `6.1.0-34-amd64`, we have to find the exact matching banner symbol table. 
 A lot of them are available on :
 https://github.com/Abyss-W4tcher/volatility3-symbols/tree/master
 
-Convert the beginning of the banner in base64 to 
-`Linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.135-1` 
--> 
-`TGludXggdmVyc2lvbiA2LjEuMC0zNC1hbWQ2NCAoZGViaWFuLWtlcm5lbEBsaXN0cy5kZWJpYW4ub3JnKSAoZ2NjLTEyIChEZWJpYW4gMTIuMi4wLTE0K2RlYjEydTEpIDEyLjIuMCwgR05VIGxkIChHTlUgQmludXRpbHMgZm9yIERlYmlhbikgMi40MCkgIzEgU01QIFBSRUVNUFRfRFlOQU1JQyBEZWJpYW4gNi4xLjEzNS0x`
+Convert the beginning of the banner in base64 
+```txt
+Linux version 6.1.0-34-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14+deb12u1) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.135-1
+```
+Resulting in :
+```base64
+TGludXggdmVyc2lvbiA2LjEuMC0zNC1hbWQ2NCAoZGViaWFuLWtlcm5lbEBsaXN0cy5kZWJpYW4ub3JnKSAoZ2NjLTEyIChEZWJpYW4gMTIuMi4wLTE0K2RlYjEydTEpIDEyLjIuMCwgR05VIGxkIChHTlUgQmludXRpbHMgZm9yIERlYmlhbikgMi40MCkgIzEgU01QIFBSRUVNUFRfRFlOQU1JQyBEZWJpYW4gNi4xLjEzNS0x
+```
 ![Association of base64 encoded linux banners & links to volatility3 profiles ](/img/ctf/driverShadow/profile.png)
 
 Find a match from banners.json, download it using the link and extract the .gz to the `volatility3/volatility3/symbols` folder.
@@ -37,7 +44,10 @@ We're now able to use linux plugins with the RAM dump!
 Using the linux.pagecache.Files plugin, we can search for rules using regex : `\b\d{2}-[a-zA-Z0-9_-]+\.rules\b`
 
 We then find a line with a weird rule name : **99-volnaya.rules**
-`0x9a097453c800	/	8:1	652915	0x9a0974b66798	REG	1	1	-rw-r--r--	2025-05-12 19:19:55.919384 UTC	2025-05-12 19:20:29.372000 UTC	2025-05-12 19:20:29.372000 UTC	/etc/udev/rules.d/99-volnaya.rules	77`
+
+```txt
+0x9a097453c800	/	8:1	652915	0x9a0974b66798	REG	1	1	-rw-r--r--	2025-05-12 19:19:55.919384 UTC	2025-05-12 19:20:29.372000 UTC	2025-05-12 19:20:29.372000 UTC	/etc/udev/rules.d/99-volnaya.rules	77
+```
 
 ### Flag 2/10 - What is the name of the kernel module ?
 A simple volatility3 request using linux.hidden_modules :
@@ -48,7 +58,7 @@ We find **volnaya_xb127** as the module name
 ### Flag 3/10 - What is the resolved IP of the attacker ?
 
 Using linux.sockstat plugin:
-```
+```txt
 4026531840	bash	2957	2957	0	0x9a094804a400	AF_INET	STREAM	TCP	10.0.2.15	55522	16.171.55.6	4421	ESTABLISHED	-
 ```
 We find the remote IP address: `16.171.55.6`
@@ -57,16 +67,15 @@ We find the remote IP address: `16.171.55.6`
 
 Using linux.kallsyms plugin:
 
-```
+```txt
 0xffffb88b6bf0	T	176	True	core	kernel	__x64_sys_kill	Symbol is in the text (code) section
-
 0xffffb8b7c770	T	288	True	core	kernel	__x64_sys_getdents64	Symbol is in the text (code) section
 ```
 Flag: `0xffffb88b6bf0:0xffffb8b7c770` 
 
 ### Flag 5/10 - What `__SYSCALLS__` are hooked with ftrace, sorted via SYSCALL number (ex: read:write:open)
 Using linux.tracing.ftrace.CheckFtrace plugin:
-```
+```txt
 0xffffc09803a0	-	0xffffc097e200	filldir64	volnaya_xb127	0xffffc097e000
 0xffffc09802c8	-	0xffffc097e200	filldir	volnaya_xb127	0xffffc097e000
 0xffffc09801f0	-	0xffffc097e200	fillonedir	volnaya_xb127	0xffffc097e000
@@ -81,21 +90,28 @@ Flag: `kill:getdents64`
 
 What is the resolved IP of the attacke
 In the `__USER_SPACE__` (UID 1000, GID 1000 for the standard user), there's a lot of bash processes
-`0x9a0946310000	2957	2957	1750	bash	0	0	0	0	2025-05-12 19:23:34.894489 UTC	Disabled`
+```txt
+0x9a0946310000	2957	2957	1750	bash	0	0	0	0	2025-05-12 19:23:34.894489 UTC	Disabled
+```
 
 Using linux.pslist, we can see that only 1 bash script runs  with UID:0 & GID 0:
-`2957	1750	bash	SUDO_COMMAND	/usr/bin/volnaya_usr rsh`
+
+```txt
+2957	1750	bash	SUDO_COMMAND	/usr/bin/volnaya_usr rsh
+```
 
 We enter PID 2957, flag : `2957`
 
 ### Flag 7/10 - What is the XOR key used (ex: 0011aabb)
 In the linux.envars, we can see the line :
-`2957	1750	bash	SUDO_COMMAND	/usr/bin/volnaya_usr rsh`
+```txt
+2957	1750	bash	SUDO_COMMAND	/usr/bin/volnaya_usr rsh
+```
 We try to recover this binary file to analyse it further using `linux.pagecache.RecoverFs` plugin:
 
 Using `readelf -a volnaya_usr` on the recovered binary, we can inspect what it contains: 
 In the .symtab section, we see interesting entries :
-```
+```txt
 51: 00000000000040e0    28 OBJECT  GLOBAL DEFAULT   25 hostname
 52: 000000000006a7e0     0 NOTYPE  GLOBAL DEFAULT   26 __bss_start
 53: 0000000000001755   261 FUNC    GLOBAL DEFAULT   15 main
@@ -106,7 +122,7 @@ In the .symtab section, we see interesting entries :
 We find that `hostname` is stored at the virtual address `00000000000040e0` and `xor_key` at the address `0000000000004100`
 
 We search for the data's offset :
-```
+```shell
 -[~/HTBCTF]$ readelf -S volnaya_usr | grep '\.data'
   [25] .data             PROGBITS         00000000000040c0  000030c0
 ```
@@ -147,7 +163,7 @@ The base address is found using hidden_module plugin.
 2. Analyse it using ghidra or `readelf kernel_module.volnaya_xb127.0xffffc09804c0.elf -a`
 
 We find interesting 4 bytes variables :
-```
+```txt
 22: 0000000000000454     4 OBJECT  GLOBAL DEFAULT   12 GROUP_HIDE
 34: 0000000000000458     4 OBJECT  GLOBAL DEFAULT   12 USER_HIDE
 ```
