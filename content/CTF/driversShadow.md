@@ -8,7 +8,7 @@ link: "https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Dri
 author: "Noé Backert"
 ---
 
-[HTB Link - github.com/hackthebox/business-ctf-2025](https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Driver's%20Shadow)
+[Link - github.com/hackthebox/business-ctf-2025](https://github.com/hackthebox/business-ctf-2025/tree/master/forensics/Driver's%20Shadow)
 
 # Solution
 ## Installation / tools 
