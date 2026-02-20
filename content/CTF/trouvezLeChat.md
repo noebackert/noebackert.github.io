@@ -4,11 +4,11 @@ ctf_platform: "Root-Me"
 date: 2026-02-07T21:00:00+01:00
 description: "A forensic challenge involving a FAT filesystem where deleted web artifacts and a document must be recovered using filesystem analysis and file carving techniques to ultimately extract hidden metadata."
 tags: ["Forensics", "Filesystem", "FAT", "Carving"]
-link: "https://www.root-me.org/"
+link: "https://www.root-me.org/fr/Challenges/Forensic/Trouvez-le-chat"
 author: "Noé Backert"
 ---
 
-[Root-Me Challenge Link](https://www.root-me.org/)
+[Root-Me Challenge Link](https://www.root-me.org/fr/Challenges/Forensic/Trouvez-le-chat)
 
 # Solution
 
