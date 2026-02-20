@@ -20,11 +20,9 @@
 </div>
 
 <ul class="terms-tags" id="tags-list">
-    {{- $type := .Type }}
-    {{- range $key, $value := .Data.Terms.Alphabetical }}
-    {{- $name := .Name }}
+    {{- range .Data.Terms.Alphabetical }}
     {{- $count := .Count }}
-    {{- with site.GetPage (printf "/%s/%s" $type $name) }}
+    {{- with .Page }}
     <li class="tag-item" data-tag-name="{{ lower .Name }}">
         <a href="{{ .Permalink }}">{{ .Name }} <sup><strong><sup>{{ $count }}</sup></strong></sup> </a>
     </li>
